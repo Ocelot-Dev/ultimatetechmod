@@ -10,15 +10,15 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = HardMachines.id, name = "Hard Machines")
-public class HardMachines 
+@Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
+public class UltimateTechMod 
 {
-	public static Logger log = Logger.getLogger("HardMachines");
+	public static Logger log = Logger.getLogger("UTM");
 	
-	@Mod.Instance(HardMachines.id)
-	public static HardMachines Instance;
+	@Mod.Instance(UltimateTechMod.id)
+	public static UltimateTechMod Instance;
 		
-	public static final String id = "HardMachines";
+	public static final String id = "UTM";
 	public static final String version = "0.0.1 Alpha_1";
 	
 	public static Configuration config;
@@ -27,9 +27,9 @@ public class HardMachines
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		log.setParent(FMLLog.getLogger());
-		this.log.info("Loading Hand Machines " + version);
+		this.log.info("Loading Ultimate Tech Mod " + version);
 		
-		config = new Configuration(new File(event.getModConfigurationDirectory(), "HardMachines.cfg"));
+		config = new Configuration(new File(event.getModConfigurationDirectory(), "UltimateTechMod.cfg"));
 		try
 		{
 			config.load();

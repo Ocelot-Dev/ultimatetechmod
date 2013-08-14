@@ -5,21 +5,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 
-public class HMItem extends Item 
+public class UTMItem extends Item 
 {
-	public HMItem(int id, String name) 
+	public UTMItem(int id, String name) 
 	{
 		super(id);
 		this.setUnlocalizedName("hardmachines:" + name);
 	}
 	
-	public HMItem(int id, int stackSize, String name) 
+	public UTMItem(int id, int stackSize, String name) 
 	{
 		this(id, name);
 		this.setMaxStackSize(stackSize);
 	}
 	
-	public HMItem(int id, int stackSize, int maxDamage, String name) 
+	public UTMItem(int id, int stackSize, int maxDamage, String name) 
 	{
 		this(id, stackSize, name);
 		this.setMaxDamage(maxDamage);
