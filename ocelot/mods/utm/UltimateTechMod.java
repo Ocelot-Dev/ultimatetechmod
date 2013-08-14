@@ -13,13 +13,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
 public class UltimateTechMod
 {
-	public static Logger log = Logger.getLogger("UTM");
-
-	@Mod.Instance(UltimateTechMod.id)
-	public static UltimateTechMod Instance;
-
 	public static final String id = "UTM";
 	public static final String version = "0.0.1 Alpha_1";
+	
+	@Mod.Instance(UltimateTechMod.id)
+	public static UltimateTechMod Instance;
+	
+	public static Logger log = Logger.getLogger("UTM");
 
 	public static Configuration config;
 
