@@ -8,6 +8,7 @@ import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
@@ -38,5 +39,11 @@ public class UltimateTechMod
 		{
 			config.save();
 		}
+	}
+	
+	@EventHandler
+	public void preInit(FMLInitializationEvent event)
+	{
+		
 	}
 }
