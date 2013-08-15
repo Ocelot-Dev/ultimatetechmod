@@ -42,7 +42,7 @@ public class UltimateTechMod
 	}
 	
 	@EventHandler
-	public void preInit(FMLInitializationEvent event)
+	public void Init(FMLInitializationEvent event)
 	{
 		
 	}
