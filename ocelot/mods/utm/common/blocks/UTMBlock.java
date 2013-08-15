@@ -12,5 +12,5 @@ public class UTMBlock extends Block
 		super(id, material);
 	}
 
-	public final static Block prototypeSolarFurnace = new UTMBlock(800, Material.ground) .setHardness(0.5F) .setStepSound(Block.soundMetalFootstep) .setUnlocalizedName("prototypeSolarFurnace") .setCreativeTab(CreativeTabs.tabRedstone) .func_111022_d("buildcraft:architect_top_pos");
+	public final static Block prototypeSolarFurnace = new UTMBlock(800, Material.ground) .setHardness(0.5F) .setStepSound(Block.soundMetalFootstep) .setUnlocalizedName("prototypeSolarFurnace") .setCreativeTab(CreativeTabs.tabRedstone) .func_111022_d("ultimatetechmod:prototypeSolarFurnace_top");
 }
