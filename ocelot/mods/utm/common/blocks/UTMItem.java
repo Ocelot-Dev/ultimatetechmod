@@ -1,4 +1,4 @@
-package ocelot.mods.utm.common.items;
+package ocelot.mods.utm.common.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
