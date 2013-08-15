@@ -2,6 +2,7 @@ package ocelot.mods.utm.common.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 
 public class UTMBlock extends Block
 {
@@ -11,4 +12,5 @@ public class UTMBlock extends Block
 		super(id, material);
 	}
 
+	public final static Block prototypeSolarFurnace = new UTMBlock(800, Material.ground) .setHardness(0.5F) .setStepSound(Block.soundMetalFootstep) .setUnlocalizedName("prototypeSolarFurnace") .setCreativeTab(CreativeTabs.tabRedstone);
 }

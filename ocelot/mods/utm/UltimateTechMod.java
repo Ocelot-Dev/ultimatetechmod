@@ -3,13 +3,16 @@ package ocelot.mods.utm;
 import java.io.File;
 import java.util.logging.Logger;
 
+import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
-
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
 public class UltimateTechMod
@@ -41,9 +44,18 @@ public class UltimateTechMod
 		}
 	}
 	
+	public void FReg(Block block, String internalName, String name, String tool, int toolLevel)
+	{
+		LanguageRegistry.addName(block, name);
+		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
+		GameRegistry.registerBlock(block, internalName);
+	}
+	
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
+		
+		FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "shovel", 0);
 		
 	}
 }
