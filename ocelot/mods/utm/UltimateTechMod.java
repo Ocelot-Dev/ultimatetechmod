@@ -3,9 +3,14 @@ package ocelot.mods.utm;
 import java.io.File;
 import java.util.logging.Logger;
 
+import ocelot.mods.utm.common.blocks.UTMBlock;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -26,6 +31,9 @@ public class UltimateTechMod
 	public static Logger log = Logger.getLogger("UTM");
 
 	public static Configuration config;
+	
+	//BLOCKS
+	public static Block prototypeSolarFurnace;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -37,6 +45,9 @@ public class UltimateTechMod
 		try
 		{
 			config.load();
+			
+			Property prop = config.getBlock("Prototype_Solar_Furnace", 800);
+			prototypeSolarFurnace = new UTMBlock(prop.getInt(), Material.ground) .setHardness(0.5F) .setStepSound(Block.soundMetalFootstep) .setUnlocalizedName("prototypeSolarFurnace") .setCreativeTab(CreativeTabs.tabRedstone) .func_111022_d("ultimatetechmod:prototypeSolarFurnace_top");
 		}
 		finally
 		{
@@ -47,6 +58,6 @@ public class UltimateTechMod
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-		Utilities.FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
+		Utilities.FReg(prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
 	}
 }
