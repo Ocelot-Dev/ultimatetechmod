@@ -47,7 +47,7 @@ public class UltimateTechMod
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-		FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "shovel", 0);
+		FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
 	}
 	
 	public void FReg(Block block, String internalName, String name, String tool, int toolLevel)
