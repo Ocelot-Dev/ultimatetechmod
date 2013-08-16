@@ -44,18 +44,16 @@ public class UltimateTechMod
 		}
 	}
 	
+	@EventHandler
+	public void Init(FMLInitializationEvent event)
+	{
+		FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "shovel", 0);
+	}
+	
 	public void FReg(Block block, String internalName, String name, String tool, int toolLevel)
 	{
 		LanguageRegistry.addName(block, name);
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, internalName);
-	}
-	
-	@EventHandler
-	public void Init(FMLInitializationEvent event)
-	{
-		
-		FReg(ocelot.mods.utm.common.blocks.UTMBlock.prototypeSolarFurnace , "prototypeSolarFurnace", "Prototype Solar Furnace", "shovel", 0);
-		
 	}
 }
