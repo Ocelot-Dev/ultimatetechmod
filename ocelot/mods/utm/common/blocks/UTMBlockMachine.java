@@ -8,8 +8,10 @@ import ocelot.mods.utm.common.entity.TileBase;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,6 +33,9 @@ public class UTMBlockMachine extends BlockContainer
 	public UTMBlockMachine(int id, Material material)
 	{
 		super(id, Material.ground);
+		this.setHardness(0.5F);
+		this.setStepSound(Block.soundMetalFootstep);
+		setCreativeTab(CreativeTabs.tabRedstone);
 	}
 	
 	@Override
@@ -203,5 +208,12 @@ public class UTMBlockMachine extends BlockContainer
 		else
 			return icons[0];
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IconRegister par1IconRegister)
+    {
+        
+    }
 
 }

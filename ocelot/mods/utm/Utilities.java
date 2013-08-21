@@ -1,6 +1,7 @@
 package ocelot.mods.utm;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -16,6 +17,13 @@ public class Utilities
 		LanguageRegistry.addName(block, name);
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, internalName);
+	}
+	
+	public static void FReg(Block block, Class<? extends ItemBlock> itemclass, String internalName, String name, String tool, int toolLevel)
+	{
+		LanguageRegistry.addName(block, name);
+		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
+		GameRegistry.registerBlock(block, itemclass, internalName);
 	}
 	
 	public static boolean isRight(ForgeDirection side, int facing)
