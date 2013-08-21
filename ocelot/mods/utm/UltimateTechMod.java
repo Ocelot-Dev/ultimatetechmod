@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import ocelot.mods.utm.common.blocks.UTMBlock;
+import ocelot.mods.utm.common.network.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,10 +17,12 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
+@NetworkMod(channels = { "fluidC" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
 public class UltimateTechMod
 {
 	public static final String id = "UTM";
