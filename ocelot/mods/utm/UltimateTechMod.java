@@ -51,7 +51,7 @@ public class UltimateTechMod
 		{
 			config.load();
 			
-			Property prop = config.getBlock("Prototype_Solar_Furnace", 800);
+			Property prop = config.getBlock("Machines1", 800);
 			prototypeSolarFurnace = new UTMBlockMachine(prop.getInt(), Material.ground);
 		}
 		finally
