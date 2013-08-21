@@ -24,7 +24,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
-@NetworkMod(channels = { "fluidC" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
+@NetworkMod(channels = { "UTM" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
 public class UltimateTechMod
 {
 	public static final String id = "UTM";
