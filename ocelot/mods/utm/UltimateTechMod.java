@@ -3,6 +3,7 @@ package ocelot.mods.utm;
 import java.io.File;
 import java.util.logging.Logger;
 
+import ocelot.mods.utm.common.CommonDefaults;
 import ocelot.mods.utm.common.blocks.UTMBlock;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
@@ -17,6 +18,7 @@ import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
@@ -29,6 +31,9 @@ public class UltimateTechMod
 {
 	public static final String id = "UTM";
 	public static final String version = "0.0.1 Alpha_1";
+	
+	@SidedProxy(clientSide = "ocelot.mods.utm.UtlititiesClient", serverSide = "ocelot.mods.utm.Utlitities")
+	public static Utilities util;
 	
 	@Mod.Instance(UltimateTechMod.id)
 	public static UltimateTechMod Instance;
