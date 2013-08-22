@@ -1,6 +1,8 @@
 package ocelot.mods.utm.client;
 
+import ocelot.mods.utm.UltimateTechMod;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 
 public class UTMCreativeTab extends CreativeTabs
 {
@@ -16,6 +18,11 @@ public class UTMCreativeTab extends CreativeTabs
 	{
 		super(par1, par2Str);
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+    public ItemStack getIconItemStack() {
+		return new ItemStack(UltimateTechMod.prototypeSolarFurnace, 1, 1);
 	}
 
 	@Override
