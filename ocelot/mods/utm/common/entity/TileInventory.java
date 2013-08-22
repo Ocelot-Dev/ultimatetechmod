@@ -60,11 +60,13 @@ public abstract class TileInventory extends TileBase implements IInventory
 
 	@Override
 	public void openChest()
-	{}
+	{
+	}
 
 	@Override
 	public void closeChest()
-	{}
+	{
+	}
 
 	@Override
 	public abstract boolean isItemValidForSlot(int i, ItemStack itemstack);

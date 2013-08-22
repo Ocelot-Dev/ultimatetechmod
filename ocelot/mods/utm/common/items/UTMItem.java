@@ -33,10 +33,11 @@ public class UTMItem extends Item
 	{
 		this.itemIcon = par1IconRegister.registerIcon(this.getUnlocalizedName());
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getItemDisplayName(ItemStack itemstack) {
+	public String getItemDisplayName(ItemStack itemstack)
+	{
 		return Localization.get("item." + this.getUnlocalizedName(itemstack));
 	}
 }
