@@ -1,16 +1,18 @@
 package ocelot.mods.utm.common.items;
 
+import ocelot.mods.utm.client.utils.Localization;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class UTMItem extends Item
 {
 	public UTMItem(int id, String name)
 	{
 		super(id);
-		this.setUnlocalizedName("hardmachines:" + name);
+		this.setUnlocalizedName(name);
 	}
 
 	public UTMItem(int id, int stackSize, String name)
@@ -31,5 +33,10 @@ public class UTMItem extends Item
 	{
 		this.itemIcon = par1IconRegister.registerIcon(this.getUnlocalizedName());
 	}
-
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getItemDisplayName(ItemStack itemstack) {
+		return Localization.get("UltimateTechMod" + this.getUnlocalizedName(itemstack));
+	}
 }

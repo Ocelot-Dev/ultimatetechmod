@@ -1,5 +1,8 @@
 package ocelot.mods.utm.common.items;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ocelot.mods.utm.client.utils.Localization;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
@@ -25,6 +28,7 @@ public class UTMBlockMachineItems extends ItemBlock
     }
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public String getUnlocalizedName(ItemStack stack)
 	{
 		int var1 = stack.getItemDamage();
@@ -40,5 +44,10 @@ public class UTMBlockMachineItems extends ItemBlock
 		}
 		return "info.invalidName";
 	}
-
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getItemDisplayName(ItemStack itemstack) {
+		return Localization.get(this.getUnlocalizedName(itemstack));
+	}
 }

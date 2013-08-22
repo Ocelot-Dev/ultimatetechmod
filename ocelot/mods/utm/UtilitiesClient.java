@@ -1,5 +1,6 @@
 package ocelot.mods.utm;
 
+import ocelot.mods.utm.client.utils.Localization;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.StringTranslate;
@@ -19,7 +20,7 @@ public class UtilitiesClient extends Utilities
 	}
 	
 	public void init()
-	{
+	{		
 		super.init();
 	}
 	
