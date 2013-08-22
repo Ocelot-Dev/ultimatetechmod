@@ -12,7 +12,7 @@ public class TileBase extends TileEntity
 {
 
 	protected int facing = 0;
-	private int prevFacing = 0;
+	protected int prevFacing = 0;
 	
 	protected boolean updateFacing = false;
 	
@@ -84,7 +84,7 @@ public class TileBase extends TileEntity
 		}
     }
 	
-	public boolean isSpecialSide(int side)
+	public boolean isFront(int side)
 	{
 		if(side == this.facing)
 			return true;

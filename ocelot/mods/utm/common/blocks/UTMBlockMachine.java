@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 public class UTMBlockMachine extends BlockContainer
 {
-	private Icon[] icons = new Icon[6];
+	private Icon[] icons = new Icon[7];
 
 	public UTMBlockMachine(int id, Material material)
 	{
@@ -166,7 +166,7 @@ public class UTMBlockMachine extends BlockContainer
 		{
 			return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
 		}
-		if(entity.isSpecialSide(side))
+		if(entity.isFront(side))
 		{
 			int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
 			switch(meta)
@@ -189,24 +189,23 @@ public class UTMBlockMachine extends BlockContainer
 	@Override
 	public Icon getIcon(int side, int meta)
 	{	
-		if(side == 1)
-			return icons[4];
-		if(side == 2)
+		switch(meta)
 		{
-			switch(meta)
+		case 0:
+			return icons[1];
+		case 1:
+			switch(side)
 			{
-				case 0:
-					return icons[0];
-				case 1:
-					return icons[1];
-				case 2:
-					return icons[2];
-				default:
-					return icons[5];
+				case 0: return icons[1];
+				case 1: return icons[4];
+				case 2: return icons[2];
+				case 3: return icons[0];
+				case 4: return icons[3];
+				case 5: return icons[3];
 			}
+			default:
+			return icons[1];
 		}
-		else
-			return icons[0];
 	}
 	
 	@Override
@@ -218,6 +217,8 @@ public class UTMBlockMachine extends BlockContainer
         this.icons[2] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front");
         this.icons[3] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side");
         this.icons[4] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top");
+        this.icons[5] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top_on");
+        this.icons[6] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side_on");
     }
 
 }
