@@ -49,6 +49,12 @@ public class UTMBlockMachine extends BlockContainer
 	}
 	
 	@Override
+	public int damageDropped(int par1)
+    {
+        return par1;
+    }
+	
+	@Override
 	public TileEntity createTileEntity(World world, int id)
 	{
 		switch (id)
