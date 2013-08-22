@@ -91,28 +91,10 @@ public class Utilities
 	public static boolean isBack(ForgeDirection side, int facing)
 	{
 		
-		switch (facing)
-		{
-			case 2:
-				if (side == ForgeDirection.NORTH)
-				{
-					return true;
-				}
-			case 3:
-				if (side == ForgeDirection.SOUTH)
-				{
-					return true;
-				}
-			case 4:
-				if (side == ForgeDirection.NORTH)
-				{
-					return true;
-				}
-			case 5:
-				if (side == ForgeDirection.EAST)
-				{
-					return true;
-				}
+		
+		if(ForgeDirection.getOrientation(facing).getOpposite().equals(side))
+		{	
+			return true;
 		}
 		return false;
 	}

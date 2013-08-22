@@ -170,10 +170,12 @@ public class UTMBlockMachine extends BlockContainer
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
 		TileBase entity = (TileBase) par1IBlockAccess.getBlockTileEntity(x, y, z);
+		
 		if (entity == null)
 		{
 			return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
 		}
+
 		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
 		if(entity.isFront(side))
 		{
@@ -181,14 +183,10 @@ public class UTMBlockMachine extends BlockContainer
 			{
 				case 1:
 					return icons[2];
-				case 2:
-					return icons[2];
-				default:
-					return icons[1];
 			}
 		}
 
-		else if(Utilities.isLeft(ForgeDirection.getOrientation(side), entity.getFacing()) || Utilities.isRight(ForgeDirection.getOrientation(side), entity.getFacing()))
+		if(Utilities.isLeft(ForgeDirection.getOrientation(side), entity.getFacing()) || Utilities.isRight(ForgeDirection.getOrientation(side), entity.getFacing()))
 		{
 			switch(meta)
 			{
@@ -197,8 +195,9 @@ public class UTMBlockMachine extends BlockContainer
 				
 			}
 		}
-		else if(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()))
+		if(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()))
 		{
+			
 			switch(meta)
 			{
 			case 1:

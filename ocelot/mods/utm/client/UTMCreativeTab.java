@@ -11,13 +11,11 @@ public class UTMCreativeTab extends CreativeTabs
 	public UTMCreativeTab(String label)
 	{
 		super(label);
-		// TODO Auto-generated constructor stub
 	}
 
 	public UTMCreativeTab(int par1, String par2Str)
 	{
 		super(par1, par2Str);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

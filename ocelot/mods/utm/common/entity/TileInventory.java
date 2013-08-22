@@ -26,9 +26,8 @@ public abstract class TileInventory extends TileBase implements IInventory
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j)
+	public ItemStack decrStackSize(int slot, int amount)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
