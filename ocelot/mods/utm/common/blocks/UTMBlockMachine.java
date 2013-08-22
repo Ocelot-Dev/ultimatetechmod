@@ -39,7 +39,7 @@ public class UTMBlockMachine extends BlockContainer
 	}
 	
 	@Override
-	@SideOnly(Side.CLIENT)
+	//@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int unknown, CreativeTabs tab, List subItems)
 	{
 		subItems.add(new ItemStack(this, 1, 0));

@@ -20,14 +20,14 @@ public class Utilities
 	
 	public static void FReg(Block block, String internalName, String name, String tool, int toolLevel)
 	{
-		LanguageRegistry.addName(block, name);
+		//LanguageRegistry.addName(block, name);
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, internalName);
 	}
 	
 	public static void FReg(Block block, Class<? extends ItemBlock> itemclass, String internalName, String name, String tool, int toolLevel)
 	{
-		LanguageRegistry.addName(block, name);
+		//LanguageRegistry.addName(block, name);
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, itemclass, internalName);
 	}
