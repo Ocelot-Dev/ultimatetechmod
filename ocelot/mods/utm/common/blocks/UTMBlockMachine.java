@@ -211,9 +211,13 @@ public class UTMBlockMachine extends BlockContainer
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IconRegister reg)
     {
-        
+        this.icons[0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_back");
+        this.icons[1] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
+        this.icons[2] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front");
+        this.icons[3] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side");
+        this.icons[4] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top");
     }
 
 }

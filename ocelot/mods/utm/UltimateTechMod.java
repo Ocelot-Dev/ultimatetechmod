@@ -33,7 +33,7 @@ public class UltimateTechMod
 	public static final String id = "UTM";
 	public static final String version = "0.0.1 Alpha_1";
 	
-	@SidedProxy(clientSide = "ocelot.mods.utm.UtlititiesClient", serverSide = "ocelot.mods.utm.Utlitities")
+	@SidedProxy(clientSide = "ocelot.mods.utm.UtilitiesClient", serverSide = "ocelot.mods.utm.Utilities")
 	public static Utilities util;
 	
 	@Mod.Instance(UltimateTechMod.id)

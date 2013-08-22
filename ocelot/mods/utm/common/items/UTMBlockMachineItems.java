@@ -38,7 +38,7 @@ public class UTMBlockMachineItems extends ItemBlock
 			case 0:
 				return "block.baseblock";
 			case 1:
-				return "tile.bitumenextractor";
+				return "tile.solarfurnace";
 			case 2:
 				return "tile.liquidrefinery";
 		}

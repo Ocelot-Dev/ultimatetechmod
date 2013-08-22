@@ -37,6 +37,6 @@ public class UTMItem extends Item
 	@Override
 	@SideOnly(Side.CLIENT)
 	public String getItemDisplayName(ItemStack itemstack) {
-		return Localization.get("UltimateTechMod" + this.getUnlocalizedName(itemstack));
+		return Localization.get("item." + this.getUnlocalizedName(itemstack));
 	}
 }
