@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
 
 import cpw.mods.fml.relauncher.Side;
@@ -35,7 +36,7 @@ public class UTMBlockMachine extends BlockContainer
 		super(id, Material.ground);
 		this.setHardness(0.5F);
 		this.setStepSound(Block.soundMetalFootstep);
-		setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(UTMCreativeTab.tab);
 	}
 	
 	@Override
