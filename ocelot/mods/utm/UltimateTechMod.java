@@ -3,6 +3,7 @@ package ocelot.mods.utm;
 import java.io.File;
 import java.util.logging.Logger;
 
+import ocelot.mods.utm.client.utils.Localization;
 import ocelot.mods.utm.common.CommonDefaults;
 import ocelot.mods.utm.common.blocks.UTMBlock;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
@@ -69,5 +70,7 @@ public class UltimateTechMod
 	public void Init(FMLInitializationEvent event)
 	{
 		Utilities.FReg(prototypeSolarFurnace, UTMBlockMachineItems.class, "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
+		
+		Localization.addLocalization("/lang/ultimatetechmod/", "en_US");
 	}
 }
