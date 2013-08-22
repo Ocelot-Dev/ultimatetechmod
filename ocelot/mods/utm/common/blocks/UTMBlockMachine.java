@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
 
@@ -26,6 +27,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class UTMBlockMachine extends BlockContainer
 {
@@ -49,9 +51,9 @@ public class UTMBlockMachine extends BlockContainer
 	}
 	
 	@Override
-	public int damageDropped(int par1)
+	public int damageDropped(int damage)
     {
-        return par1;
+        return damage;
     }
 	
 	@Override
@@ -60,7 +62,7 @@ public class UTMBlockMachine extends BlockContainer
 		switch (id)
 		{
 			case 1:
-				return null;
+				return new TileBase();
 			case 2:
 				return null;
 		}
@@ -172,25 +174,46 @@ public class UTMBlockMachine extends BlockContainer
 		{
 			return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
 		}
+		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
 		if(entity.isFront(side))
 		{
-			int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
 			switch(meta)
 			{
-				case 0:
-					return icons[0];
 				case 1:
-					return icons[1];
+					return icons[2];
 				case 2:
 					return icons[2];
 				default:
-					return icons[5];
+					return icons[1];
 			}
 		}
-		if(side == 1)
-			return icons[4];
-		else
-			return icons[0];
+
+		else if(Utilities.isLeft(ForgeDirection.getOrientation(side), entity.getFacing()) || Utilities.isRight(ForgeDirection.getOrientation(side), entity.getFacing()))
+		{
+			switch(meta)
+			{
+			case 1:
+				return icons[3];
+				
+			}
+		}
+		else if(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()))
+		{
+			switch(meta)
+			{
+			case 1:
+				return icons[0];
+			}
+		}
+		else if(side == 1)
+		{
+			switch(meta)
+			{
+			case 1:
+				return icons[4];
+			}
+		}
+		return icons[1];
 	}
 	@Override
 	public Icon getIcon(int side, int meta)
