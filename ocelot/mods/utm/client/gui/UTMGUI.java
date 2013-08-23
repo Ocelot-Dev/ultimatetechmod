@@ -3,6 +3,8 @@ package ocelot.mods.utm.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import ocelot.mods.utm.common.entity.TileBase;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -20,12 +22,14 @@ public class UTMGUI extends GuiContainer
 {
 	protected final ResourceLocation TEXTURE;
 	protected final ResourceLocation BLOCK_TEXTURE = TextureMap.field_110575_b;
+	protected final TileBase tile;
 	
-	public UTMGUI(Container par1Container, String texturePath)
+	public UTMGUI(Container par1Container, TileBase entity, String texturePath)
 	{
 		super(par1Container);
 		
 		this.TEXTURE = new ResourceLocation("ultimatetechmod", texturePath);
+		this.tile = entity;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import ocelot.mods.utm.client.gui.GUIPrototypeSolarFurnace;
 import ocelot.mods.utm.common.entity.TileBase;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,7 +50,7 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-
+				return new GUIPrototypeSolarFurnace(null, oTE, "textures/gui/PrototypeSolarfurnace.png");
 			case 2:
 
 			}

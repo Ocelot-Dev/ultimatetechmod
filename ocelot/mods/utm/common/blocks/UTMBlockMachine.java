@@ -163,6 +163,7 @@ public class UTMBlockMachine extends BlockContainer
 		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
