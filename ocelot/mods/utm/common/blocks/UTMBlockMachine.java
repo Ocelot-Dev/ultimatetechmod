@@ -7,6 +7,7 @@ import ocelot.mods.utm.UltimateTechMod;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -61,7 +62,7 @@ public class UTMBlockMachine extends BlockContainer
 		switch (id)
 		{
 		case 1:
-			return new TileBase();
+			return new TilePrototypeSolarFurnace(1);
 		case 2:
 			return null;
 		}
@@ -130,7 +131,6 @@ public class UTMBlockMachine extends BlockContainer
 		TileBase tB = (TileBase) tileEntity;
 		if (!world.isRemote && tB != null)
 			{
-				System.out.println("hi there");
 				player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
 			}
 		return true;
@@ -171,7 +171,6 @@ public class UTMBlockMachine extends BlockContainer
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
 		TileBase entity = (TileBase) par1IBlockAccess.getBlockTileEntity(x, y, z);
-		//System.out.println(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()));
 
 		if (entity == null)
 		{

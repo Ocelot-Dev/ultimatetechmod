@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import ocelot.mods.utm.client.gui.GUIPrototypeSolarFurnace;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
+import ocelot.mods.utm.common.gui.ContainerPrototypeSolarFurnace;
 import ocelot.mods.utm.common.gui.UTMContainer;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +34,10 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-				return new UTMContainer(oTE, player.inventory);
+			{
+				TilePrototypeSolarFurnace PSFTE = (TilePrototypeSolarFurnace)oTE;
+				return new ContainerPrototypeSolarFurnace(PSFTE, player.inventory);
+			}
 			case 2:
 
 			}

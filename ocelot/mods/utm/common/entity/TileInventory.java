@@ -3,6 +3,8 @@ package ocelot.mods.utm.common.entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public abstract class TileInventory extends TileBase implements IInventory
 {
@@ -11,6 +13,42 @@ public abstract class TileInventory extends TileBase implements IInventory
 	public TileInventory(int invSize)
 	{
 		this.inv = new ItemStack[invSize];
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound)
+	{
+		super.readFromNBT(tagCompound);
+
+		NBTTagList tagList = tagCompound.getTagList("Inventory");
+		for (int i = 0; i < tagList.tagCount(); i++)
+		{
+			NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+			byte slot = tag.getByte("Slot");
+			if ((slot < 0) || (slot >= this.inv.length))
+				continue;
+			this.inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+		}
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeToNBT(tagCompound);
+
+		NBTTagList itemList = new NBTTagList();
+		for (int i = 0; i < this.inv.length; i++)
+		{
+			ItemStack stack = this.inv[i];
+			if (stack == null)
+				continue;
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setByte("Slot", (byte) i);
+			stack.writeToNBT(tag);
+			itemList.appendTag(tag);
+		}
+		
+		tagCompound.setTag("Inventory", itemList);
 	}
 
 	@Override

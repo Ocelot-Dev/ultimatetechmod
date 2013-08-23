@@ -125,7 +125,7 @@ public class UTMGUI extends GuiContainer
         }
     }
 	
-	protected void displayGauge(int j, int k, int line, int col, int squaled, FluidStack liquid, String filePath) 
+	protected void displayGauge(int j, int k, int line, int col, int squaled, FluidStack liquid) 
 	{
 		if (liquid == null) {
 			return;

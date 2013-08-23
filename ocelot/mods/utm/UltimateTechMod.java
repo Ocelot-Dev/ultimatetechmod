@@ -8,6 +8,7 @@ import ocelot.mods.utm.common.CommonDefaults;
 import ocelot.mods.utm.common.blocks.UTMBlock;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
 import ocelot.mods.utm.common.network.*;
 
@@ -75,7 +76,7 @@ public class UltimateTechMod
 	{
 		Utilities.FReg(prototypeSolarFurnace, UTMBlockMachineItems.class, "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
 		
-		GameRegistry.registerTileEntity(TileBase.class, "startertile");
+		GameRegistry.registerTileEntity(TilePrototypeSolarFurnace.class, "ProtoSolar");
 		
 		Localization.addLocalization("/lang/ultimatetechmod/", "en_US");
 	}
