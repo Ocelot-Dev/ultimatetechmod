@@ -7,7 +7,6 @@ import ocelot.mods.utm.UltimateTechMod;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -168,6 +167,7 @@ public class UTMBlockMachine extends BlockContainer
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
 		TileBase entity = (TileBase) par1IBlockAccess.getBlockTileEntity(x, y, z);
+		System.out.println(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()));
 
 		if (entity == null)
 		{
@@ -194,6 +194,7 @@ public class UTMBlockMachine extends BlockContainer
 
 			}
 		}
+		
 		if (Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()))
 		{
 
