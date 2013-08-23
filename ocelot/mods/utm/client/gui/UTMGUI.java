@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import buildcraft.core.DefaultProps;
+import buildcraft.energy.TileEngineIron;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -33,7 +34,14 @@ public class UTMGUI extends GuiContainer
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j){}
+	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
+	{
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.renderEngine.func_110577_a(TEXTURE);
+		int j = (width - xSize) / 2;
+		int k = (height - ySize) / 2;
+		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
+	}
 	
 	protected void drawToolTip(String line1, String line2, int par2, int par3)
     {

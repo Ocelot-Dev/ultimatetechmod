@@ -19,7 +19,7 @@ public class UTMContainer extends Container
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer)
 	{
-		return false;
+		return true;
 	}
 
 }

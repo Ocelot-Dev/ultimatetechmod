@@ -2,11 +2,13 @@ package ocelot.mods.utm.common.entity;
 
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.common.network.packets.PacketFacing;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.ForgeDirection;
 
 public class TileBase extends TileEntity
 {

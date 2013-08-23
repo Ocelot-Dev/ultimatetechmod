@@ -128,7 +128,11 @@ public class UTMBlockMachine extends BlockContainer
 			return false;
 		}
 		TileBase tB = (TileBase) tileEntity;
-		if (!world.isRemote && tB != null) player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
+		if (!world.isRemote && tB != null)
+			{
+				System.out.println("hi there");
+				player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
+			}
 		return true;
 	}
 
@@ -163,12 +167,11 @@ public class UTMBlockMachine extends BlockContainer
 		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
 		TileBase entity = (TileBase) par1IBlockAccess.getBlockTileEntity(x, y, z);
-		System.out.println(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()));
+		//System.out.println(Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()));
 
 		if (entity == null)
 		{

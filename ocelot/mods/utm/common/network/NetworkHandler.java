@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import ocelot.mods.utm.client.gui.GUIPrototypeSolarFurnace;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.gui.UTMContainer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
@@ -31,7 +32,7 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-
+				return new UTMContainer(oTE, player.inventory);
 			case 2:
 
 			}
@@ -43,6 +44,7 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
+		System.out.println(ID);
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if ((tileEntity instanceof TileBase))
 		{
@@ -50,7 +52,9 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-				return new GUIPrototypeSolarFurnace(null, oTE, "textures/gui/PrototypeSolarfurnace.png");
+			{
+				return new GUIPrototypeSolarFurnace(new UTMContainer(oTE, player.inventory), oTE, "textures/gui/PrototypeSolarfurnace.png");
+			}
 			case 2:
 
 			}

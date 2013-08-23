@@ -24,6 +24,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -50,6 +51,8 @@ public class UltimateTechMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		NetworkRegistry.instance().registerGuiHandler(Instance, new NetworkHandler());
+		
 		log.setParent(FMLLog.getLogger());
 		this.log.info("Loading Ultimate Tech Mod " + version);
 

@@ -9,7 +9,11 @@ public class GUIPrototypeSolarFurnace extends UTMGUI
 	public GUIPrototypeSolarFurnace(Container par1Container, TileBase tile, String texturePath)
 	{
 		super(par1Container, tile, texturePath);
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
+	{
+		super.drawGuiContainerBackgroundLayer(f, i, j);
+	}
 }
