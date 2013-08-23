@@ -90,8 +90,6 @@ public class Utilities
 	
 	public static boolean isBack(ForgeDirection side, int facing)
 	{
-		
-		
 		if(ForgeDirection.getOrientation(facing).getOpposite().equals(side))
 		{	
 			return true;
