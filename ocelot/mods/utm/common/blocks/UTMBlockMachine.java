@@ -62,7 +62,7 @@ public class UTMBlockMachine extends BlockContainer
 		switch (id)
 		{
 		case 1:
-			return new TilePrototypeSolarFurnace(1);
+			return new TilePrototypeSolarFurnace();
 		case 2:
 			return null;
 		}

@@ -66,7 +66,32 @@ public abstract class TileInventory extends TileBase implements IInventory
 	@Override
 	public ItemStack decrStackSize(int slot, int amount)
 	{
-		return null;
+		if (this.inv[slot] != null)
+        {
+            ItemStack itemstack;
+
+            if (this.inv[slot].stackSize <= amount)
+            {
+                itemstack = this.inv[slot];
+                this.inv[slot] = null;
+                return itemstack;
+            }
+            else
+            {
+                itemstack = this.inv[slot].splitStack(amount);
+
+                if (this.inv[slot].stackSize == 0)
+                {
+                    this.inv[slot] = null;
+                }
+
+                return itemstack;
+            }
+        }
+        else
+        {
+            return null;
+        }
 	}
 
 	@Override

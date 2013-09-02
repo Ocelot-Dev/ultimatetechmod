@@ -8,18 +8,15 @@ public class TilePrototypeSolarFurnace extends TileInventory
 {
 	private boolean canWork = false;
 
-	public TilePrototypeSolarFurnace(int invSize)
+	public TilePrototypeSolarFurnace()
 	{
-		super(invSize);
-		// TODO Auto-generated constructor stub
+		super(2);
 	}
 	
 	public void updateEntity() 
 	{
 		if(!this.worldObj.isRaining() && this.worldObj.isDaytime() && this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord))
-		{
 			canWork = true;
-		}
 		else
 			canWork = false;
 	}
@@ -42,7 +39,7 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
 	{
-		// TODO Auto-generated method stub
+		inv[i] = itemstack;
 
 	}
 
@@ -61,8 +58,10 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack)
 	{
-		// TODO Auto-generated method stub
-		return true;
+		if(this.inv[i].equals(itemstack) || this.inv[i].equals(null) || this.inv[i].equals(new ItemStack(0, 0, 0)))
+			return true;
+		else 
+			return false;
 	}
 
 }
