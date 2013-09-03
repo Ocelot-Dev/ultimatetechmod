@@ -9,7 +9,7 @@ public class TilePrototypeSolarFurnace extends TileInventory
 {
 	private boolean canSeeSky = false;
 	public int smelttime;
-	private int cooktime = 200;
+	private int cooktime = 1600;
 
 	public TilePrototypeSolarFurnace()
 	{
