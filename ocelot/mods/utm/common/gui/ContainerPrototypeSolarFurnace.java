@@ -1,7 +1,10 @@
 package ocelot.mods.utm.common.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
@@ -12,14 +15,57 @@ import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 
 public class ContainerPrototypeSolarFurnace extends UTMContainer
 {
+	private TilePrototypeSolarFurnace furnace;
+	
+	private int lastSmeltTime;
+	private boolean lastCanSeeSky;
 
 	public ContainerPrototypeSolarFurnace(TilePrototypeSolarFurnace te, InventoryPlayer inv)
 	{
 		super(te, inv);
+		furnace = te;
 		addSlotToContainer(new Slot(te, 0, 56, 35));
 		addSlotToContainer(new SlotFurnace(inv.player, te, 1, 116, 35));
 		this.addPlayerInventory(inv, 8, 84);
 	}
+	
+	public void detectAndSendChanges()
+    {
+        super.detectAndSendChanges();
+
+        for (int i = 0; i < this.crafters.size(); ++i)
+        {
+            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+
+            if (this.lastSmeltTime != this.furnace.smelttime)
+            {
+                icrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
+            }
+
+            if (this.lastCanSeeSky != this.furnace.getCanSeeSky())
+            {
+                icrafting.sendProgressBarUpdate(this, 1, this.furnace.getCanSeeSky() == true ? 1 : 0);
+            }
+
+        }
+
+        this.lastSmeltTime = this.furnace.smelttime;
+        this.lastCanSeeSky = this.furnace.getCanSeeSky();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int par1, int par2)
+    {
+        if (par1 == 0)
+        {
+            this.furnace.smelttime = par2;
+        }
+
+        if (par1 == 1)
+        {
+            this.furnace.setCanSeeSky(par2);
+        }
+    }
 
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotNum)
     {

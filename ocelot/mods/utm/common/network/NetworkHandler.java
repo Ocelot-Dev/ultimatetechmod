@@ -49,7 +49,6 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		System.out.println(ID);
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if ((tileEntity instanceof TileBase))
 		{
@@ -59,7 +58,7 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			case 1:
 			{
 				TilePrototypeSolarFurnace PSFTE = (TilePrototypeSolarFurnace)oTE;
-				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace(PSFTE, player.inventory), oTE, "textures/gui/PrototypeSolarfurnace.png");
+				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace(PSFTE, player.inventory), PSFTE, "textures/gui/PrototypeSolarfurnace.png");
 			}
 			case 2:
 

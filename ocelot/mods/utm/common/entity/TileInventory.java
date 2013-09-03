@@ -2,11 +2,12 @@ package ocelot.mods.utm.common.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public abstract class TileInventory extends TileBase implements IInventory
+public abstract class TileInventory extends TileBase implements IInventory, ISidedInventory
 {
 	protected ItemStack[] inv;
 
