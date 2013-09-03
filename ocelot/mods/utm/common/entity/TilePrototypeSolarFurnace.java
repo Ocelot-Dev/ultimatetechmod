@@ -25,13 +25,12 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	{
 		if(!this.worldObj.isRemote)
 		{
-			if(this.worldObj.isRaining() || !this.worldObj.isDaytime() || !this.worldObj.canBlockSeeTheSky(this.yCoord, this.xCoord, this.zCoord))
+			if(this.worldObj.isRaining() || !this.worldObj.isDaytime() || !this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord))
 			{
 				this.canSeeSky = false;
-				this.smelttime = 0;
-				return;
 			}
-			this.canSeeSky = true;
+			else
+				this.canSeeSky = true;
 			
 			if(this.canSmelt())
 			{
@@ -43,13 +42,17 @@ public class TilePrototypeSolarFurnace extends TileInventory
 				}
 			}
 			else
-				this.smelttime = 0;
+			{
+				if(smelttime != 0)
+					smelttime--;
+				super.onInventoryChanged();
+			}
 		}
 	}
 	
 	private boolean canSmelt()
     {
-        if (this.inv[0] == null)
+        if (this.inv[0] == null || canSeeSky == false)
         {
             return false;
         }

@@ -29,6 +29,13 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 		this.addPlayerInventory(inv, 8, 84);
 	}
 	
+	public void addCraftingToCrafters(ICrafting par1ICrafting)
+    {
+        super.addCraftingToCrafters(par1ICrafting);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
+        par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.getCanSeeSky() == true ? 1 : 0);
+    }
+	
 	public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
