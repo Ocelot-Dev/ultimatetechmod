@@ -13,19 +13,19 @@ public class UtilitiesClient extends Utilities
 		if (!disable)
 		{
 			Minecraft mc = Minecraft.getMinecraft();
-			
-			if (debug && message != null && mc.theWorld != null)
-				mc.thePlayer.sendChatToPlayer(new ChatMessageComponent());
+
+			if (debug && message != null && mc.theWorld != null) mc.thePlayer.sendChatToPlayer(new ChatMessageComponent().createFromText(message.toString()));
 		}
 	}
-	
+
 	public void init()
-	{		
+	{
 		super.init();
 	}
-	
+
 	@Override
-	public String getCurrentLanguage() {
-		return Minecraft.getMinecraft().func_135016_M().func_135041_c().func_135034_a();
+	public String getCurrentLanguage()
+	{
+		return Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
 	}
 }

@@ -7,6 +7,7 @@ import ocelot.mods.utm.common.entity.TileBase;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class PacketHandler
 {
@@ -30,7 +31,7 @@ public class PacketHandler
 			if(tile instanceof TileBase)
 			{
 				TileBase tB = (TileBase) tile;
-				tB.setFacing(facing);
+				tB.setFacing(ForgeDirection.getOrientation(facing));
 			}
 		}
 		catch(IOException e)

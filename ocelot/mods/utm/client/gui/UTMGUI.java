@@ -8,9 +8,6 @@ import ocelot.mods.utm.common.entity.TileBase;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import buildcraft.core.DefaultProps;
-import buildcraft.energy.TileEngineIron;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Container;
@@ -22,7 +19,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class UTMGUI extends GuiContainer
 {
 	protected final ResourceLocation TEXTURE;
-	protected final ResourceLocation BLOCK_TEXTURE = TextureMap.field_110575_b;
+	protected final ResourceLocation BLOCK_TEXTURE = TextureMap.locationBlocksTexture;
 	protected final TileBase tile;
 	
 	public UTMGUI(Container par1Container, TileBase entity, String texturePath)
@@ -37,7 +34,7 @@ public class UTMGUI extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_110577_a(TEXTURE);
+		mc.renderEngine.bindTexture(TEXTURE);
 		int j = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(j, k, 0, 0, xSize, ySize);
@@ -137,7 +134,7 @@ public class UTMGUI extends GuiContainer
 		if (fluid != null && fluid.getStillIcon() != null) {
 			liquidIcon = fluid.getStillIcon();
 		}
-		mc.renderEngine.func_110577_a(BLOCK_TEXTURE);
+		mc.renderEngine.bindTexture(BLOCK_TEXTURE);
 
 		if (liquidIcon != null) {
 			while (true) {
@@ -160,7 +157,7 @@ public class UTMGUI extends GuiContainer
 			}
 		}
 
-		mc.renderEngine.func_110577_a(TEXTURE);
+		mc.renderEngine.bindTexture(TEXTURE);
 		drawTexturedModalRect(j + col, k + line, 176, 0, 16, 60);
 	}
 

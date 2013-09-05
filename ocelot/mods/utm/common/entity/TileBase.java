@@ -10,11 +10,11 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
-public class TileBase extends TileEntity
+public abstract class TileBase extends TileEntity
 {
 
-	protected int facing = 0;
-	protected int prevFacing = 0;
+	protected ForgeDirection facing = ForgeDirection.NORTH;
+	protected ForgeDirection prevFacing = ForgeDirection.NORTH;
 
 	protected boolean updateFacing = false;
 
@@ -23,7 +23,7 @@ public class TileBase extends TileEntity
 		return this.blockMetadata;
 	}
 
-	public int getFacing()
+	public ForgeDirection getFacing()
 	{
 		return this.facing;
 	}
@@ -35,7 +35,7 @@ public class TileBase extends TileEntity
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
 	}
 
-	public void setFacing(int face)
+	public void setFacing(ForgeDirection face)
 	{
 		facing = face;
 		if (facing != prevFacing && !this.worldObj.isRemote)
@@ -51,7 +51,7 @@ public class TileBase extends TileEntity
 	{
 		super.readFromNBT(tagCompound);
 
-		this.facing = tagCompound.getInteger("facing");
+		this.facing =  ForgeDirection.getOrientation(tagCompound.getInteger("facing"));
 		this.blockMetadata = tagCompound.getInteger("meta");
 	}
 
@@ -60,18 +60,18 @@ public class TileBase extends TileEntity
 	{
 		super.writeToNBT(tagCompound);
 
-		tagCompound.setInteger("facing", facing);
+		tagCompound.setInteger("facing", Utilities.getDirectionInt(facing));
 		tagCompound.setInteger("meta", blockMetadata);
 	}
 
 	public void readFromCustomNBT(NBTTagCompound tagCompound)
 	{
-		this.facing = tagCompound.getInteger("facing");
+		this.facing =  ForgeDirection.getOrientation(tagCompound.getInteger("facing"));
 	}
 
 	public void writeToCustomNBT(NBTTagCompound tagCompound)
 	{
-		tagCompound.setInteger("facing", facing);
+		tagCompound.setInteger("facing", Utilities.getDirectionInt(facing));
 	}
 
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
@@ -79,18 +79,20 @@ public class TileBase extends TileEntity
 		switch (pkt.actionType)
 		{
 		case 1:
-			this.readFromCustomNBT(pkt.customParam1);
+			this.readFromCustomNBT(pkt.data);
 			break;
 
 		}
 	}
 
-	public boolean isFront(int side)
+	public boolean isFront(ForgeDirection side)
 	{
 		if (side == this.facing)
 			return true;
 		else
 			return false;
 	}
+	
+	public abstract boolean doesSideNotChangeActive(ForgeDirection side);
 
 }

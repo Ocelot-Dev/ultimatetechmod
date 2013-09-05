@@ -14,6 +14,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,7 +33,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class UTMBlockMachine extends BlockContainer
 {
-	private Icon[] icons = new Icon[7];
+	private Icon[][] icons;
 
 	public UTMBlockMachine(int id, Material material)
 	{
@@ -143,23 +145,23 @@ public class UTMBlockMachine extends BlockContainer
 		if (te == null) return;
 
 		if (entityliving == null)
-			te.setFacing(2);
+			te.setFacing(ForgeDirection.NORTH);
 		else
 		{
 			int l = MathHelper.floor_double(entityliving.rotationYaw * 4.0F / 360.0F + 0.5D) & 0x3;
 			switch (l)
 			{
 			case 0:
-				te.setFacing(2);
+				te.setFacing(ForgeDirection.NORTH);
 				break;
 			case 1:
-				te.setFacing(5);
+				te.setFacing(ForgeDirection.EAST);
 				break;
 			case 2:
-				te.setFacing(3);
+				te.setFacing(ForgeDirection.SOUTH);
 				break;
 			case 3:
-				te.setFacing(4);
+				te.setFacing(ForgeDirection.WEST);
 				break;
 			}
 		}
@@ -170,52 +172,27 @@ public class UTMBlockMachine extends BlockContainer
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
 	{
+		ForgeDirection direction = ForgeDirection.getOrientation(side);
 		TileBase entity = (TileBase) par1IBlockAccess.getBlockTileEntity(x, y, z);
-
-		if (entity == null)
-		{
-			return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
-		}
-
 		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
-		if (entity.isFront(side))
-		{
-			switch (meta)
-			{
-			case 1:
-				return icons[2];
-			}
-		}
-
-		if (Utilities.isLeft(ForgeDirection.getOrientation(side), entity.getFacing())
-				|| Utilities.isRight(ForgeDirection.getOrientation(side), entity.getFacing()))
-		{
-			switch (meta)
-			{
-			case 1:
-				return icons[3];
-
-			}
-		}
-		
-		if (Utilities.isBack(ForgeDirection.getOrientation(side), entity.getFacing()))
-		{
-
-			switch (meta)
-			{
-			case 1:
-				return icons[0];
-			}
-		}
-		else if (side == 1)
-		{
-			switch (meta)
-			{
-			case 1:
-				return icons[4];
-			}
-		}
-		return icons[1];
+		if (entity == null) return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
+		ForgeDirection facing = entity.getFacing();
+		int index = 0;
+		if(facing.equals(direction))
+			index = 0;
+		else if(Utilities.isLeft(direction, facing) || Utilities.isRight(direction, facing))
+			index = 2;
+		else if(Utilities.isBack(direction, facing))
+			index = 4;
+		else if(direction.equals(ForgeDirection.UP))
+			index = 6;
+		else if(direction.equals(ForgeDirection.DOWN))
+			index = 8;
+		else
+			index = 8;
+		if(!entity.doesSideNotChangeActive(direction))
+			index += 1;
+		return icons[meta][index];
 	}
 
 	@Override
@@ -224,25 +201,25 @@ public class UTMBlockMachine extends BlockContainer
 		switch (meta)
 		{
 		case 0:
-			return icons[1];
+			return icons[0][0];
 		case 1:
 			switch (side)
 			{
 			case 0:
-				return icons[1];
+				return icons[1][1];
 			case 1:
-				return icons[4];
+				return icons[1][6];
 			case 2:
-				return icons[2];
+				return icons[1][2];
 			case 3:
-				return icons[0];
+				return icons[1][0];
 			case 4:
-				return icons[3];
+				return icons[1][3];
 			case 5:
-				return icons[3];
+				return icons[1][3];
 			}
 		default:
-			return icons[1];
+			return icons[0][0];
 		}
 	}
 
@@ -250,13 +227,36 @@ public class UTMBlockMachine extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister reg)
 	{
-		this.icons[0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_back");
-		this.icons[1] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
-		this.icons[2] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front");
-		this.icons[3] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side");
-		this.icons[4] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top");
-		this.icons[5] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top_on");
-		this.icons[6] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side_on");
+		/*int metaCount = 2;
+
+	    this.icons = new Icon[metaCount][12];
+
+	    for (int index = 0; index < metaCount; index++) {
+
+	      String name = "ultimatetechmod:" + getTextureName(index);
+
+	      for (int active = 0; active < 2; active++)
+	        for (int side = 0; side < 6; side++) {
+	          int subIndex = active * 6 + side;
+	          String subName = name + ":" + subIndex;
+
+	          TextureAtlasSprite texture = new BlockTextureStitched(subName, subIndex);
+
+	          this.textures[index][subIndex] = texture;
+	          ((TextureMap)iconRegister).setTextureEntry(subName, texture);
+	        }
+	    }*/
+		this.icons = new Icon[2][10];
+		
+		this.icons[0][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
+		
+		this.icons[1][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front");
+		this.icons[1][1] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front_on");
+		this.icons[1][2] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side");
+		this.icons[1][3] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side_on");
+		this.icons[1][4] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_back");
+		this.icons[1][6] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top");
+		this.icons[1][8] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
 	}
 
 }

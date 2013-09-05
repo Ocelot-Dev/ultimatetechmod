@@ -4,8 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import ocelot.mods.utm.Utilities;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class PacketFacing extends UTMPacket
 {
@@ -15,11 +18,11 @@ public class PacketFacing extends UTMPacket
 	public int zCoord;
 	public int facing;
 	
-	public PacketFacing(int id, int x, int y, int z, int facing)
+	public PacketFacing(int id, int x, int y, int z, ForgeDirection facing)
 	{
 		this.packetId = id;
 		this.packetType = 1;
-		this.facing = facing;
+		this.facing = Utilities.getDirectionInt(facing);
 		
 		this.xCoord = x;
 		this.yCoord = y;

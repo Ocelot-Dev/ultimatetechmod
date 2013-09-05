@@ -14,6 +14,17 @@ public class GUIPrototypeSolarFurnace extends UTMGUI
 	}
 	
 	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) 
+	{
+		int leftOff = this.guiLeft;
+		int topOff = this.guiTop;
+		if(x > 79 + leftOff && x < 103 + leftOff && y > 34 + topOff && y < 50 + topOff)
+		{
+			this.drawToolTip("Per-Cent Done", entity.getScaledSmeltTime(100) + "", x - leftOff, y - topOff);
+		}
+	}
+	
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
 		super.drawGuiContainerBackgroundLayer(f, i, j);

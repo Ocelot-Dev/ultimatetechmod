@@ -4,10 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.ForgeDirection;
 
 public class TilePrototypeSolarFurnace extends TileInventory
 {
-	private boolean canSeeSky = false;
+	private boolean canSeeSky = true;
 	public int smelttime;
 	private int cooktime = 1600;
 
@@ -15,27 +16,20 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	{
 		super(2);
 	}
-	
+
 	public int getScaledSmeltTime(int size)
 	{
 		return smelttime * size / cooktime;
 	}
-	
-	public void updateEntity() 
+
+	public void updateEntity()
 	{
-		if(!this.worldObj.isRemote)
+		if (!this.worldObj.isRemote)
 		{
-			if(this.worldObj.isRaining() || !this.worldObj.isDaytime() || !this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord))
-			{
-				this.canSeeSky = false;
-			}
-			else
-				this.canSeeSky = true;
-			
-			if(this.canSmelt())
+			if (this.canSmelt())
 			{
 				smelttime++;
-				if(smelttime == cooktime)
+				if (smelttime == cooktime)
 				{
 					smelttime = 0;
 					this.smeltItem();
@@ -43,78 +37,84 @@ public class TilePrototypeSolarFurnace extends TileInventory
 			}
 			else
 			{
-				if(smelttime != 0)
-					smelttime--;
+				if (smelttime != 0) smelttime--;
 				super.onInventoryChanged();
 			}
 		}
 	}
-	
+
 	private boolean canSmelt()
-    {
-        if (this.inv[0] == null || canSeeSky == false)
-        {
-            return false;
-        }
-        else
-        {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
-            if (itemstack == null) return false;
-            if (this.inv[1] == null) return true;
-            if (!this.inv[1].isItemEqual(itemstack)) return false;
-            int result = inv[1].stackSize + itemstack.stackSize;
-            return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
-        }
-    }
-	
+	{
+		if (this.worldObj.isRaining() || !this.worldObj.isDaytime() || !this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord))
+		{
+			this.canSeeSky = false;
+			return false;
+		}
+		this.canSeeSky = true;
+
+		if (this.inv[0] == null)
+		{
+			return false;
+		}
+		else
+		{
+			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
+			if (itemstack == null) return false;
+			if (this.inv[1] == null) return true;
+			if (!this.inv[1].isItemEqual(itemstack)) return false;
+			int result = inv[1].stackSize + itemstack.stackSize;
+			return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+		}
+	}
+
 	public void smeltItem()
-    {
-        if (this.canSmelt())
-        {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
+	{
+		if (this.canSmelt())
+		{
+			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inv[0]);
 
-            if (this.inv[1] == null)
-            {
-                this.inv[1] = itemstack.copy();
-            }
-            else if (this.inv[1].isItemEqual(itemstack))
-            {
-                inv[1].stackSize += itemstack.stackSize;
-            }
+			if (this.inv[1] == null)
+			{
+				this.inv[1] = itemstack.copy();
+			}
+			else if (this.inv[1].isItemEqual(itemstack))
+			{
+				inv[1].stackSize += itemstack.stackSize;
+			}
 
-            --this.inv[0].stackSize;
+			--this.inv[0].stackSize;
 
-            if (this.inv[0].stackSize <= 0)
-            {
-                this.inv[0] = null;
-            }
-        }
-    }
-	
+			if (this.inv[0].stackSize <= 0)
+			{
+				this.inv[0] = null;
+			}
+		}
+	}
+
 	public boolean getCanSeeSky()
 	{
 		return this.canSeeSky;
 	}
-	
+
 	public void setCanSeeSky(int bool)
 	{
-		this.canSeeSky = (bool == 1 ? true : false); 
+		this.canSeeSky = (bool == 1 ? true : false);
 	}
-	
-	public void readFromNBT(NBTTagCompound tag)
-    {
-        super.readFromNBT(tag);
-        smelttime = tag.getInteger("smeltTime");
-    }
 
-    /**
-     * Writes a tile entity to NBT.
-     */
-    public void writeToNBT(NBTTagCompound tag)
-    {
-        super.writeToNBT(tag);
-        tag.setInteger("smeltTime", smelttime);
-    }
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		smelttime = tag.getInteger("smeltTime");
+	}
+
+	/**
+	 * Writes a tile entity to NBT.
+	 */
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		tag.setInteger("smeltTime", smelttime);
+	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack)
@@ -138,9 +138,9 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack)
 	{
-		if(this.inv[i].equals(itemstack) || this.inv[i].equals(null) || this.inv[i].equals(new ItemStack(0, 0, 0)))
+		if (this.inv[i].equals(itemstack) || this.inv[i].equals(null) || this.inv[i].equals(new ItemStack(0, 0, 0)))
 			return true;
-		else 
+		else
 			return false;
 	}
 
@@ -148,25 +148,31 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	public int[] getAccessibleSlotsFromSide(int var1)
 	{
 		int[] slots = new int[1];
+		slots[0] = 1;
 		return slots;
 	}
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack item, int side)
 	{
-		if(slot == 0 && inv[slot] == null && FurnaceRecipes.smelting().getSmeltingResult(item) != null)
+		if (slot == 0 && inv[slot] == null && FurnaceRecipes.smelting().getSmeltingResult(item) != null)
 			return true;
-		else if(slot == 0 && item != null && FurnaceRecipes.smelting().getSmeltingResult(item) != null && inv[slot].isItemEqual(item))
-			return true;
+		else if (slot == 0 && item != null && FurnaceRecipes.smelting().getSmeltingResult(item) != null && inv[slot].isItemEqual(item)) return true;
 		return false;
 	}
 
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, int side)
 	{
-		if(slot == 1)
-			return true;
+		if (slot == 1) return true;
 		return false;
 	}
 
+	@Override
+	public boolean doesSideNotChangeActive(ForgeDirection side)
+	{
+		if(!this.canSeeSky) return true;
+		if (this.facing.getOpposite().equals(side) || side.equals(ForgeDirection.UP) || side.equals(ForgeDirection.DOWN)) return true;
+		return false;
+	}
 }

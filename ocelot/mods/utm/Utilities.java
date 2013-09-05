@@ -30,67 +30,68 @@ public class Utilities
 		GameRegistry.registerBlock(block, itemclass, internalName);
 	}
 	
-	public static boolean isRight(ForgeDirection side, int facing)
+	public static ForgeDirection getNextSide(ForgeDirection side)
 	{
-		
-		switch (facing)
-		{
-			case 2:
-				if (side == ForgeDirection.WEST)
-				{
-					return true;
-				}
-			case 3:
-				if (side == ForgeDirection.EAST)
-				{
-					return true;
-				}
-			case 4:
-				if (side == ForgeDirection.SOUTH)
-				{
-					return true;
-				}
-			case 5:
-				if (side == ForgeDirection.NORTH)
-				{
-					return true;
-				}
-		}
+		int sideNum = getDirectionInt(side);
+		if(sideNum == 2)
+			return ForgeDirection.getOrientation(5);
+		if(sideNum == 3)
+			return ForgeDirection.getOrientation(4);
+		if(sideNum == 4)
+			return ForgeDirection.getOrientation(2);
+		if(sideNum == 5)
+			return ForgeDirection.getOrientation(3);
+		return ForgeDirection.UNKNOWN;
+	}
+	
+	public static ForgeDirection getPrevSide(ForgeDirection side)
+	{
+		int sideNum = getDirectionInt(side);
+		if(sideNum == 2)
+			return ForgeDirection.getOrientation(4);
+		else if(sideNum == 3)
+			return ForgeDirection.getOrientation(5);
+		else if(sideNum == 4)
+			return ForgeDirection.getOrientation(3);
+		else if(sideNum == 5)
+			return ForgeDirection.getOrientation(2);
+		return ForgeDirection.UNKNOWN;
+	}
+	
+	public static int getDirectionInt(ForgeDirection direction)
+	{
+		if(direction.equals(ForgeDirection.DOWN))
+			return 0;
+		if(direction.equals(ForgeDirection.UP))
+			return 1;
+		if(direction.equals(ForgeDirection.NORTH))
+			return 2;
+		if(direction.equals(ForgeDirection.SOUTH))
+			return 3;
+		if(direction.equals(ForgeDirection.WEST))
+			return 4;
+		if(direction.equals(ForgeDirection.EAST))
+			return 5;
+		return -1;
+	}
+	
+	public static boolean isRight(ForgeDirection side, ForgeDirection facing)
+	{
+		if(getNextSide(facing).equals(side))
+			return true;
 		return false;
 	}
 	
-	public static boolean isLeft(ForgeDirection side, int facing)
+	public static boolean isLeft(ForgeDirection side, ForgeDirection facing)
 	{
-		
-		switch (facing)
-		{
-			case 2:
-				if (side == ForgeDirection.EAST)
-				{
-					return true;
-				}
-			case 3:
-				if (side == ForgeDirection.WEST)
-				{
-					return true;
-				}
-			case 4:
-				if (side == ForgeDirection.NORTH)
-				{
-					return true;
-				}
-			case 5:
-				if (side == ForgeDirection.SOUTH)
-				{
-					return true;
-				}
-		}
+		if(getPrevSide(facing).equals(side))
+			return true;
 		return false;
 	}
 	
-	public static boolean isBack(ForgeDirection side, int facing)
+	public static boolean isBack(ForgeDirection side, ForgeDirection facing)
 	{
-		if(ForgeDirection.getOrientation(facing).getOpposite().equals(side))
+		if(facing.getOpposite().equals(side))
 		{	
 			return true;
 		}
