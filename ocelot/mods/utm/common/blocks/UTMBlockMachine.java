@@ -168,6 +168,16 @@ public class UTMBlockMachine extends BlockContainer
 
 		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
 	}
+	
+	@Override
+	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
+		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		if (tile instanceof TileBase) {
+			((TileBase)tile).setFacing(Utilities.getNextSide(((TileBase)tile).getFacing()));
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
@@ -227,25 +237,6 @@ public class UTMBlockMachine extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister reg)
 	{
-		/*int metaCount = 2;
-
-	    this.icons = new Icon[metaCount][12];
-
-	    for (int index = 0; index < metaCount; index++) {
-
-	      String name = "ultimatetechmod:" + getTextureName(index);
-
-	      for (int active = 0; active < 2; active++)
-	        for (int side = 0; side < 6; side++) {
-	          int subIndex = active * 6 + side;
-	          String subName = name + ":" + subIndex;
-
-	          TextureAtlasSprite texture = new BlockTextureStitched(subName, subIndex);
-
-	          this.textures[index][subIndex] = texture;
-	          ((TextureMap)iconRegister).setTextureEntry(subName, texture);
-	        }
-	    }*/
 		this.icons = new Icon[2][10];
 		
 		this.icons[0][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");

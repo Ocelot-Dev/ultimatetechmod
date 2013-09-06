@@ -9,6 +9,7 @@ import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.gui.ContainerPrototypeSolarFurnace;
 import ocelot.mods.utm.common.gui.UTMContainer;
+import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
@@ -70,18 +71,23 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 	@Override
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player)
 	{
-		int handler;
+		int handlerID;
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 		EntityPlayer ep = (EntityPlayer) player;
 		World world = ep.worldObj;
 		try
 		{
-			handler = inputStream.readInt();
+			handlerID = inputStream.read();
 
-			switch (handler)
+			switch (handlerID)
 			{
 			case 1:
 				this.handler.handelFacing(inputStream, world);
+				break;
+			case 2:
+				PacketTileUpdate packetTU = new PacketTileUpdate();
+				packetTU.readData(inputStream);
+				handler.handleTileUpdate(packetTU, world);
 				break;
 			}
 		}

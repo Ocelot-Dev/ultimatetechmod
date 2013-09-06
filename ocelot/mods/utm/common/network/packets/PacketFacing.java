@@ -44,7 +44,6 @@ public class PacketFacing extends UTMPacket
 	@Override
 	public void readData(DataInputStream data) throws IOException
 	{
-		this.packetType = data.readInt();
 		this.packetId = data.readInt();
 		
 		this.xCoord = data.readInt();
@@ -57,9 +56,6 @@ public class PacketFacing extends UTMPacket
 	@Override
 	public void writeData(DataOutputStream data) throws IOException
 	{
-		data.writeInt(packetType);
-		data.writeInt(packetId);
-		
 		data.writeInt(xCoord);
 		data.writeInt(yCoord);
 		data.writeInt(zCoord);

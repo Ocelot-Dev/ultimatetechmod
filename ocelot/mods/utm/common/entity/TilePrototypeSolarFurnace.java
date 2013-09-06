@@ -1,14 +1,20 @@
 package ocelot.mods.utm.common.entity;
 
+import buildcraft.api.transport.IPipeConnection.ConnectOverride;
+import buildcraft.api.transport.IPipeTile.PipeType;
+import ocelot.mods.utm.Utilities;
+import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TilePrototypeSolarFurnace extends TileInventory
 {
-	private boolean canSeeSky = true;
+	private boolean isOn = false;
+	private boolean prevIsOn = false;
 	public int smelttime;
 	private int cooktime = 1600;
 
@@ -22,10 +28,12 @@ public class TilePrototypeSolarFurnace extends TileInventory
 		return smelttime * size / cooktime;
 	}
 
+	@Override
 	public void updateEntity()
 	{
 		if (!this.worldObj.isRemote)
 		{
+			shouldSendUpdate();
 			if (this.canSmelt())
 			{
 				smelttime++;
@@ -47,10 +55,10 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	{
 		if (this.worldObj.isRaining() || !this.worldObj.isDaytime() || !this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord))
 		{
-			this.canSeeSky = false;
+			this.isOn = false;
 			return false;
 		}
-		this.canSeeSky = true;
+		this.isOn = true;
 
 		if (this.inv[0] == null)
 		{
@@ -91,29 +99,58 @@ public class TilePrototypeSolarFurnace extends TileInventory
 		}
 	}
 
-	public boolean getCanSeeSky()
+	public boolean getIsOn()
 	{
-		return this.canSeeSky;
+		return this.isOn;
 	}
 
-	public void setCanSeeSky(int bool)
+	public void setIsOn(int bool)
 	{
-		this.canSeeSky = (bool == 1 ? true : false);
+		this.isOn = (bool == 1 ? true : false);
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
 		smelttime = tag.getInteger("smeltTime");
+		isOn = tag.getBoolean("isOn");
 	}
-
-	/**
-	 * Writes a tile entity to NBT.
-	 */
+	
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
 		tag.setInteger("smeltTime", smelttime);
+		tag.setBoolean("isOn", this.isOn);
+	}
+	
+	@Override
+	public void readFromCustomNBT(NBTTagCompound tag)
+	{
+		this.facing =  ForgeDirection.getOrientation(tag.getInteger("facing"));
+		this.isOn = tag.getBoolean("isOn");
+	}
+
+	@Override
+	public void writeToCustomNBT(NBTTagCompound tag)
+	{
+		tag.setInteger("facing", Utilities.getDirectionInt(facing));
+		tag.setBoolean("isOn", this.isOn);
+	}
+	
+	public void shouldSendUpdate()
+	{
+		if(this.isOn != this.prevIsOn || !this.facing.equals(prevFacing))
+		{
+			NBTTagCompound tag = new NBTTagCompound();
+			writeToCustomNBT(tag);
+			PacketTileUpdate packet = new PacketTileUpdate(this.getID(), this.xCoord, this.yCoord, this.zCoord, tag);
+			Utilities.sendPacketToAll(worldObj, this.xCoord, this.yCoord, this.zCoord, 30, packet.getPacket());
+			prevIsOn = isOn;
+			prevFacing = facing;
+		}
+			
 	}
 
 	@Override
@@ -171,8 +208,16 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	@Override
 	public boolean doesSideNotChangeActive(ForgeDirection side)
 	{
-		if(!this.canSeeSky) return true;
+		if(!this.isOn) return true;
 		if (this.facing.getOpposite().equals(side) || side.equals(ForgeDirection.UP) || side.equals(ForgeDirection.DOWN)) return true;
 		return false;
+	}
+
+	@Override
+	public ConnectOverride overridePipeConnection(PipeType type, ForgeDirection with)
+	{
+		if (type == PipeType.ITEM)
+			return ConnectOverride.DEFAULT;
+		return ConnectOverride.DISCONNECT;
 	}
 }

@@ -31,7 +31,7 @@ public class GUIPrototypeSolarFurnace extends UTMGUI
 		int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         
-        if(entity.getCanSeeSky())
+        if(entity.getIsOn())
         {
         	this.drawTexturedModalRect(k + 83, l + 18, 176, 0, 14, 14);
         }

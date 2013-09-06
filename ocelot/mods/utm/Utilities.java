@@ -98,11 +98,11 @@ public class Utilities
 		return false;
 	}
 	
-	public static void sendPacketToAll(World world, Packet data)
+	public static void sendPacketToAll(World world, int x, int y, int z, int range,  Packet data)
 	{
 		if (data != null)
 		{
-			PacketDispatcher.sendPacketToAllInDimension(data, world.provider.dimensionId);
+			PacketDispatcher.sendPacketToAllAround(x, y, z, range, world.provider.dimensionId, data);
 		}
 	}
 	

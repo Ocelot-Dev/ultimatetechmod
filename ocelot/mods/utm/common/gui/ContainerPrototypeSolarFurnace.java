@@ -33,7 +33,7 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
     {
         super.addCraftingToCrafters(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.getCanSeeSky() == true ? 1 : 0);
+        par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.getIsOn() == true ? 1 : 0);
     }
 	
 	public void detectAndSendChanges()
@@ -49,15 +49,15 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
                 icrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
             }
 
-            if (this.lastCanSeeSky != this.furnace.getCanSeeSky())
+            if (this.lastCanSeeSky != this.furnace.getIsOn())
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.furnace.getCanSeeSky() == true ? 1 : 0);
+                icrafting.sendProgressBarUpdate(this, 1, this.furnace.getIsOn() == true ? 1 : 0);
             }
 
         }
 
         this.lastSmeltTime = this.furnace.smelttime;
-        this.lastCanSeeSky = this.furnace.getCanSeeSky();
+        this.lastCanSeeSky = this.furnace.getIsOn();
     }
 
     @SideOnly(Side.CLIENT)
@@ -70,7 +70,7 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 
         if (par1 == 1)
         {
-            this.furnace.setCanSeeSky(par2);
+            this.furnace.setIsOn(par2);
         }
     }
 

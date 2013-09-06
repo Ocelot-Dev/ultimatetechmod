@@ -1,5 +1,6 @@
 package ocelot.mods.utm.common.entity;
 
+import buildcraft.api.transport.IPipeConnection;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.common.network.packets.PacketFacing;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +11,7 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
-public abstract class TileBase extends TileEntity
+public abstract class TileBase extends TileEntity implements IPipeConnection
 {
 
 	protected ForgeDirection facing = ForgeDirection.NORTH;
@@ -28,6 +29,7 @@ public abstract class TileBase extends TileEntity
 		return this.facing;
 	}
 
+	@Override
 	public Packet getDescriptionPacket()
 	{
 		NBTTagCompound var1 = new NBTTagCompound();
@@ -38,12 +40,6 @@ public abstract class TileBase extends TileEntity
 	public void setFacing(ForgeDirection face)
 	{
 		facing = face;
-		if (facing != prevFacing && !this.worldObj.isRemote)
-		{
-			PacketFacing packet = new PacketFacing(this.blockMetadata, this.xCoord, this.yCoord, this.zCoord, this.facing);
-			Utilities.sendPacketToAll(worldObj, packet.getPacket());
-		}
-		prevFacing = facing;
 	}
 
 	@Override
@@ -66,7 +62,7 @@ public abstract class TileBase extends TileEntity
 
 	public void readFromCustomNBT(NBTTagCompound tagCompound)
 	{
-		this.facing =  ForgeDirection.getOrientation(tagCompound.getInteger("facing"));
+		this.facing = ForgeDirection.getOrientation(tagCompound.getInteger("facing"));
 	}
 
 	public void writeToCustomNBT(NBTTagCompound tagCompound)
@@ -74,6 +70,7 @@ public abstract class TileBase extends TileEntity
 		tagCompound.setInteger("facing", Utilities.getDirectionInt(facing));
 	}
 
+	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
 	{
 		switch (pkt.actionType)
@@ -94,5 +91,12 @@ public abstract class TileBase extends TileEntity
 	}
 	
 	public abstract boolean doesSideNotChangeActive(ForgeDirection side);
+	
+	public void updateTile(NBTTagCompound tag)
+	{
+		readFromCustomNBT(tag);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlockId(xCoord, yCoord, zCoord));
+	}
 
 }
