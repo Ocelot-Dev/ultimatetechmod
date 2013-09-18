@@ -73,7 +73,6 @@ public abstract class TilePowered extends TileInventory implements IEnergySink, 
 		super.readFromNBT(tag);
 		
 		setEnergyStored(tag.getFloat("energy"));
-		//powerHandler.readFromNBT(tag, "powerhandler");
 	}
 	
 	@Override
@@ -82,7 +81,17 @@ public abstract class TilePowered extends TileInventory implements IEnergySink, 
 		super.writeToNBT(tag);
 		
 		tag.setFloat("energy", storedEnergy);
-		//powerHandler.writeToNBT(tag, "powerhandler");
+	}
+	
+	public boolean useEnergy(float energy, boolean shouldUse)
+	{
+		if(storedEnergy - energy > 0.0F)
+		{
+			if(shouldUse)
+				storedEnergy -= energy;
+			return true;
+		}
+		return false;
 	}
 	
 	/*IC2 SUPORT*/
