@@ -90,6 +90,9 @@ public abstract class TileBase extends TileEntity implements IPipeConnection
 			return false;
 	}
 	
+	/**
+	 * Return if the given side shounld NOT change to the active look
+	 * **/
 	public abstract boolean doesSideNotChangeActive(ForgeDirection side);
 	
 	public void updateTile(NBTTagCompound tag)

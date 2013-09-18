@@ -67,6 +67,11 @@ public abstract class TilePowered extends TileInventory implements IEnergySink, 
 		}
 	}
 	
+	public int getScaledEnergy(int size)
+	{
+		return Math.round(storedEnergy * size / maxEnergyStore);
+	}
+	
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{

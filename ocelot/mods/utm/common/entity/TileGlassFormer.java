@@ -1,32 +1,31 @@
 package ocelot.mods.utm.common.entity;
 
+import ocelot.mods.utm.common.fluidtank.UTMFluidTank;
+import buildcraft.api.power.PowerHandler;
+import buildcraft.api.transport.IPipeTile.PipeType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import buildcraft.api.core.SafeTimeTracker;
-import buildcraft.api.power.PowerHandler;
-import buildcraft.api.transport.IPipeConnection.ConnectOverride;
-import buildcraft.api.transport.IPipeTile.PipeType;
+import net.minecraftforge.fluids.IFluidTank;
 
-public class TileGlassFormer extends TilePowered implements IFluidHandler
+public class TileGlassFormer extends TileTempControl implements IFluidHandler
 {
-	private SafeTimeTracker coolDown = new SafeTimeTracker();
-	private SafeTimeTracker heatUp = new SafeTimeTracker();
-	
-	public FluidTank tanks[] = new FluidTank[2];
-	public int temp = 20;
+	public UTMFluidTank Tanks[] = new UTMFluidTank[2];
 
 	public TileGlassFormer()
 	{
-		super(4, 1500);
+		super(4, 1500F, 20, 3000, 7, 14, 0.5F);
 		
-		tanks[0] = new FluidTank(5000);
-		tanks[1] = new FluidTank(5000);
+		Tanks[0] = new UTMFluidTank(5000);
+		Tanks[1] = new UTMFluidTank(5000);
 	}
 	
 	@Override
@@ -35,28 +34,54 @@ public class TileGlassFormer extends TilePowered implements IFluidHandler
 		super.updateEntity();
 		if(!this.worldObj.isRemote)
 		{
-			if(this.useEnergy(0.5F, false))
-			{
-				coolDown.markTime(worldObj);
-				useEnergy(0.5F, true);
-				
-				if(heatUp.markTimeIfDelay(worldObj, 7))
-					temp++;
-			}
-			else
-			{
-				heatUp.markTime(worldObj);
-				if(coolDown.markTimeIfDelay(worldObj, 14))
-				{
-					temp = Math.max(temp--, 20);
-				}
-			}
+		}
+	}
+	
+	@Override
+	public void getGUINetworkData(int type, int data)
+	{
+		switch(type)
+		{
+		case 0:
+			this.temp = data;
+		case 1:
+			this.storedEnergy = data / 10;
+		/*case 2:
+			if(Tanks[0].getFluid() == null)
+				Tanks[0].setFluid(new FluidStack(FluidRegistry.getFluid(data), 0));
+			else if (Tanks[0].getFluid().fluidID != data)
+				Tanks[0].fluid.fluidID = data;
+		case 3:
+			if(Tanks[0].getFluid() == null)
+				Tanks[0].setFluid(new FluidStack(0, data));
+			else if (Tanks[0].getFluid().fluidID != data)
+				Tanks[0].fluid.amount = data;
+		case 4:
+			if(Tanks[1].getFluid() == null)
+				Tanks[1].setFluid(new FluidStack(FluidRegistry.getFluid(data), 0));
+			else if (Tanks[1].getFluid().fluidID != data)
+				Tanks[1].fluid.fluidID = data;
+		case 5:
+			if(Tanks[1].getFluid() == null)
+				Tanks[1].setFluid(new FluidStack(0, data));
+			else if (Tanks[1].getFluid().fluidID != data)
+				Tanks[1].fluid.amount = data;*/
 		}
 	}
 
 	@Override
-	public void doWork(PowerHandler workProvider)
-	{}
+	public void sendGUINetworkData(Container container, ICrafting iCrafting)
+	{
+		iCrafting.sendProgressBarUpdate(container, 0, this.temp);
+		iCrafting.sendProgressBarUpdate(container, 1, Math.round(this.storedEnergy * 10));
+		//iCrafting.sendProgressBarUpdate(container, 2, this.Tanks[0].fluid.fluidID);
+		//iCrafting.sendProgressBarUpdate(container, 3, this.Tanks[0].fluid.amount);
+		//iCrafting.sendProgressBarUpdate(container, 4, this.Tanks[1].fluid.fluidID);
+		//iCrafting.sendProgressBarUpdate(container, 5, this.Tanks[1].fluid.amount);
+	}
+
+	@Override
+	public void doWork(PowerHandler workProvider){}
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int var1)
@@ -82,7 +107,7 @@ public class TileGlassFormer extends TilePowered implements IFluidHandler
 	@Override
 	public ConnectOverride overridePipeConnection(PipeType type, ForgeDirection with)
 	{
-		return ConnectOverride.DEFAULT;
+		return ConnectOverride.CONNECT;
 	}
 
 	@Override
@@ -95,13 +120,12 @@ public class TileGlassFormer extends TilePowered implements IFluidHandler
 	@Override
 	public String getInvName()
 	{
-		return "inv.glassformer";
+		return "tile.glassformer";
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer entityplayer)
 	{
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -119,6 +143,7 @@ public class TileGlassFormer extends TilePowered implements IFluidHandler
 		return false;
 	}
 
+	/*Tank Stuff */
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
 	{
@@ -160,5 +185,4 @@ public class TileGlassFormer extends TilePowered implements IFluidHandler
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

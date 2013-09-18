@@ -5,6 +5,8 @@ import buildcraft.api.transport.IPipeTile.PipeType;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -146,7 +148,7 @@ public class TilePrototypeSolarFurnace extends TileInventory
 			NBTTagCompound tag = new NBTTagCompound();
 			writeToCustomNBT(tag);
 			PacketTileUpdate packet = new PacketTileUpdate(this.getID(), this.xCoord, this.yCoord, this.zCoord, tag);
-			Utilities.sendPacketToAll(worldObj, this.xCoord, this.yCoord, this.zCoord, 30, packet.getPacket());
+			Utilities.sendPacketToAllAround(worldObj, this.xCoord, this.yCoord, this.zCoord, 30, packet.getPacket());
 			prevIsOn = isOn;
 			prevFacing = facing;
 		}
@@ -208,7 +210,7 @@ public class TilePrototypeSolarFurnace extends TileInventory
 	@Override
 	public boolean doesSideNotChangeActive(ForgeDirection side)
 	{
-		if(!this.isOn) return true;
+		if (!this.isOn) return true;
 		if (this.facing.getOpposite().equals(side) || side.equals(ForgeDirection.UP) || side.equals(ForgeDirection.DOWN)) return true;
 		return false;
 	}
@@ -220,4 +222,10 @@ public class TilePrototypeSolarFurnace extends TileInventory
 			return ConnectOverride.DEFAULT;
 		return ConnectOverride.DISCONNECT;
 	}
+
+	@Override
+	public void getGUINetworkData(int i, int data){}
+
+	@Override
+	public void sendGUINetworkData(Container container, ICrafting iCrafting){}
 }

@@ -9,21 +9,18 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
-import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 
-public class ContainerPrototypeSolarFurnace extends UTMContainer
+public class ContainerGlassFormer extends UTMContainer
 {
-	private TilePrototypeSolarFurnace furnace;
-	
-	private int lastSmeltTime;
-	private boolean lastCanSeeSky;
+	private TileGlassFormer tile;
 
-	public ContainerPrototypeSolarFurnace(TilePrototypeSolarFurnace te, InventoryPlayer inv)
+	public ContainerGlassFormer(TileGlassFormer te, InventoryPlayer inv)
 	{
 		super(te, inv);
-		furnace = te;
+		
+		tile = te;
 		addSlotToContainer(new Slot(te, 0, 56, 35));
 		addSlotToContainer(new SlotFurnace(inv.player, te, 1, 116, 35));
 		this.addPlayerInventory(inv, 8, 84);
@@ -33,8 +30,8 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 	public void addCraftingToCrafters(ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.getIsOn() == true ? 1 : 0);
+        
+        tile.sendGUINetworkData(this, par1ICrafting);
     }
 	
 	@Override
@@ -44,37 +41,15 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 
         for (int i = 0; i < this.crafters.size(); ++i)
         {
-            ICrafting icrafting = (ICrafting)this.crafters.get(i);
-
-            if (this.lastSmeltTime != this.furnace.smelttime)
-            {
-                icrafting.sendProgressBarUpdate(this, 0, this.furnace.smelttime);
-            }
-
-            if (this.lastCanSeeSky != this.furnace.getIsOn())
-            {
-                icrafting.sendProgressBarUpdate(this, 1, this.furnace.getIsOn() == true ? 1 : 0);
-            }
-
+        	tile.sendGUINetworkData(this, (ICrafting)this.crafters.get(i));
         }
-
-        this.lastSmeltTime = this.furnace.smelttime;
-        this.lastCanSeeSky = this.furnace.getIsOn();
     }
 
 	@Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int par1, int par2)
     {
-        if (par1 == 0)
-        {
-            this.furnace.smelttime = par2;
-        }
-
-        if (par1 == 1)
-        {
-            this.furnace.setIsOn(par2);
-        }
+        tile.getGUINetworkData(par1, par2);
     }
 
 	@Override
@@ -142,4 +117,5 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 
         return itemstack;
     }
+
 }

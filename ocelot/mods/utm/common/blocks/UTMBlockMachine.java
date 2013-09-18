@@ -133,8 +133,6 @@ public class UTMBlockMachine extends BlockContainer
 			return false;
 		}
 		TileBase tB = (TileBase) tileEntity;
-		if(tB instanceof TilePowered)
-			System.out.println(((TilePowered)tB).storedEnergy);
 		if (!world.isRemote && tB != null)
 			{
 				player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
@@ -213,6 +211,9 @@ public class UTMBlockMachine extends BlockContainer
 	{
 		try
 		{
+			Icon icon = icons[meta][index];
+			if(icon == null)
+				return icons[0][0];
 			return icons[meta][index];
 		}
 		catch(ArrayIndexOutOfBoundsException e)
@@ -253,7 +254,7 @@ public class UTMBlockMachine extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister reg)
 	{
-		this.icons = new Icon[2][10];
+		this.icons = new Icon[3][10];
 		
 		this.icons[0][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
 		

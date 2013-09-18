@@ -98,7 +98,7 @@ public class Utilities
 		return false;
 	}
 	
-	public static void sendPacketToAll(World world, int x, int y, int z, int range,  Packet data)
+	public static void sendPacketToAllAround(World world, int x, int y, int z, int range,  Packet data)
 	{
 		if (data != null)
 		{

@@ -1,6 +1,8 @@
 package ocelot.mods.utm.common.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -51,6 +53,10 @@ public abstract class TileInventory extends TileBase implements IInventory, ISid
 		
 		tagCompound.setTag("Inventory", itemList);
 	}
+	
+	public abstract void getGUINetworkData(int i, int data);
+	
+	public abstract void sendGUINetworkData(Container container, ICrafting iCrafting);
 
 	@Override
 	public int getSizeInventory()
@@ -102,12 +108,6 @@ public abstract class TileInventory extends TileBase implements IInventory, ISid
 	}
 
 	@Override
-	public abstract void setInventorySlotContents(int i, ItemStack itemstack);
-
-	@Override
-	public abstract String getInvName();
-
-	@Override
 	public boolean isInvNameLocalized()
 	{
 		return false;
@@ -120,19 +120,8 @@ public abstract class TileInventory extends TileBase implements IInventory, ISid
 	}
 
 	@Override
-	public abstract boolean isUseableByPlayer(EntityPlayer entityplayer);
+	public void openChest(){}
 
 	@Override
-	public void openChest()
-	{
-	}
-
-	@Override
-	public void closeChest()
-	{
-	}
-
-	@Override
-	public abstract boolean isItemValidForSlot(int i, ItemStack itemstack);
-
+	public void closeChest(){}
 }
