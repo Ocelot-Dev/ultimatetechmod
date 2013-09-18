@@ -7,6 +7,8 @@ import ocelot.mods.utm.UltimateTechMod;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TileGlassFormer;
+import ocelot.mods.utm.common.entity.TilePowered;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -66,7 +68,7 @@ public class UTMBlockMachine extends BlockContainer
 		case 1:
 			return new TilePrototypeSolarFurnace();
 		case 2:
-			return null;
+			return new TileGlassFormer();
 		}
 		return null;
 	}
@@ -131,6 +133,8 @@ public class UTMBlockMachine extends BlockContainer
 			return false;
 		}
 		TileBase tB = (TileBase) tileEntity;
+		if(tB instanceof TilePowered)
+			System.out.println(((TilePowered)tB).storedEnergy);
 		if (!world.isRemote && tB != null)
 			{
 				player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
@@ -202,7 +206,19 @@ public class UTMBlockMachine extends BlockContainer
 			index = 8;
 		if(!entity.doesSideNotChangeActive(direction))
 			index += 1;
-		return icons[meta][index];
+		return getValidIcon(meta, index);
+	}
+	
+	public Icon getValidIcon(int meta, int index)
+	{
+		try
+		{
+			return icons[meta][index];
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			return icons[0][0];
+		}
 	}
 
 	@Override

@@ -8,9 +8,11 @@ import ocelot.mods.utm.common.CommonDefaults;
 import ocelot.mods.utm.common.blocks.UTMBlock;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
 import ocelot.mods.utm.common.entity.TileBase;
+import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
 import ocelot.mods.utm.common.network.*;
+import universalelectricity.compatibility.Compatibility;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -29,7 +31,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod")
+@Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod", version = UltimateTechMod.version)
 @NetworkMod(channels = { "UTM" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
 public class UltimateTechMod
 {
@@ -74,9 +76,12 @@ public class UltimateTechMod
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
+		Compatibility.initiate();
+		
 		Utilities.FReg(prototypeSolarFurnace, UTMBlockMachineItems.class, "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
 		
 		GameRegistry.registerTileEntity(TilePrototypeSolarFurnace.class, "ProtoSolar");
+		GameRegistry.registerTileEntity(TileGlassFormer.class, "GlassFormer");
 		
 		Localization.addLocalization("/lang/ultimatetechmod/", "en_US");
 	}

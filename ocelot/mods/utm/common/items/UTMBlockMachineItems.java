@@ -40,7 +40,7 @@ public class UTMBlockMachineItems extends ItemBlock
 			case 1:
 				return "tile.solarfurnace";
 			case 2:
-				return "tile.liquidrefinery";
+				return "tile.glassformer";
 		}
 		return "info.invalidName";
 	}
