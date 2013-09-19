@@ -22,7 +22,7 @@ public class TileGlassFormer extends TileTempControl implements IFluidHandler
 
 	public TileGlassFormer()
 	{
-		super(4, 1500F, 20, 2000, 7, 14, 0.5F);
+		super(4, 1500F, 20, 2000, 14, 28, 0.5F);
 		
 		Tanks[0] = new UTMFluidTank(5000);
 		Tanks[1] = new UTMFluidTank(5000);
