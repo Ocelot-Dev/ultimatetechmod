@@ -44,10 +44,4 @@ public class UTMBlockMachineItems extends ItemBlock
 		}
 		return "info.invalidName";
 	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public String getItemDisplayName(ItemStack itemstack) {
-		return Localization.get(this.getUnlocalizedName(itemstack));
-	}
 }

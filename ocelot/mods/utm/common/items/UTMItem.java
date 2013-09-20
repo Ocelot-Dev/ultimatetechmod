@@ -31,13 +31,6 @@ public class UTMItem extends Item
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.itemIcon = par1IconRegister.registerIcon(this.getUnlocalizedName().replaceFirst("item.", ""));
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public String getItemDisplayName(ItemStack itemstack)
-	{
-		return Localization.get(this.getUnlocalizedName(itemstack));
+		this.itemIcon = par1IconRegister.registerIcon("ultimatetechmod:" + this.getUnlocalizedName().replaceFirst("item.", ""));
 	}
 }

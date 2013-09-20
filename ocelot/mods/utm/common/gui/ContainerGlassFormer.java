@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
+import ocelot.mods.utm.common.utils.MachineRecipes;
+import ocelot.mods.utm.common.utils.SlotFilter;
 
 public class ContainerGlassFormer extends UTMContainer
 {
@@ -21,8 +23,10 @@ public class ContainerGlassFormer extends UTMContainer
 		super(te, inv);
 		
 		tile = te;
-		addSlotToContainer(new Slot(te, 0, 56, 35));
-		addSlotToContainer(new SlotFurnace(inv.player, te, 1, 116, 35));
+		addSlotToContainer(new SlotFilter(te, 0, 25, 59, MachineRecipes.getGlassItems()));
+		addSlotToContainer(new SlotFilter(te, 1, 46, 59, MachineRecipes.getReflective()));
+		addSlotToContainer(new Slot(te, 2, 76, 35));
+		addSlotToContainer(new SlotFurnace(inv.player, te, 3, 139, 35));
 		this.addPlayerInventory(inv, 8, 84);
 	}
 	

@@ -2,25 +2,26 @@ package ocelot.mods.utm.client.gui;
 
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import net.minecraft.inventory.Container;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class GUIPrototypeSolarFurnace extends UTMGUI
 {
 	private TilePrototypeSolarFurnace entity;
 
-	public GUIPrototypeSolarFurnace(Container par1Container, TilePrototypeSolarFurnace tile, String texturePath)
+	public GUIPrototypeSolarFurnace(Container par1Container, TilePrototypeSolarFurnace tile)
 	{
-		super(par1Container, tile, texturePath);
+		super(par1Container, tile, "textures/gui/PrototypeSolarfurnace.png");
 		entity = tile;
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y) 
+	public void drawScreen(int x, int y, float par3)
 	{
-		int leftOff = this.guiLeft;
-		int topOff = this.guiTop;
-		if(x > 79 + leftOff && x < 103 + leftOff && y > 34 + topOff && y < 50 + topOff)
+		super.drawScreen(x, y, par3);
+		
+		if(this.isPointInRegion(7, 9, 4, 67, x, y))
 		{
-			this.drawToolTip("Per-Cent Done", entity.getScaledSmeltTime(100) + "", x - leftOff, y - topOff);
+			this.drawToolTip( "Per-Cent Done", entity.getScaledSmeltTime(100) + "", x, y);
 		}
 	}
 	

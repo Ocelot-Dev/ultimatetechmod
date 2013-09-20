@@ -12,6 +12,7 @@ import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
 import ocelot.mods.utm.common.network.*;
+import ocelot.mods.utm.common.utils.MachineRecipes;
 import universalelectricity.compatibility.Compatibility;
 
 import net.minecraft.block.Block;
@@ -77,12 +78,15 @@ public class UltimateTechMod
 	public void Init(FMLInitializationEvent event)
 	{
 		Compatibility.initiate();
+		MachineRecipes.InitRecipes();
 		
-		Utilities.FReg(prototypeSolarFurnace, UTMBlockMachineItems.class, "prototypeSolarFurnace", "Prototype Solar Furnace", "pickaxe", 0);
+		Utilities.FReg(prototypeSolarFurnace, UTMBlockMachineItems.class, "prototypeSolarFurnace", "pickaxe", 0);
 		
 		GameRegistry.registerTileEntity(TilePrototypeSolarFurnace.class, "ProtoSolar");
 		GameRegistry.registerTileEntity(TileGlassFormer.class, "GlassFormer");
 		
-		Localization.addLocalization("/lang/ultimatetechmod/", "en_US");
+		LanguageRegistry.instance().loadLocalization("/lang/ultimatetechmod/en_US.properties", "en_US", false);
+		
+		MachineRecipes.InitRecipes();
 	}
 }

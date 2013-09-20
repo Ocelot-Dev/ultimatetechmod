@@ -1,6 +1,7 @@
 package ocelot.mods.utm.client.gui;
 
 import net.minecraft.inventory.Container;
+import net.minecraftforge.fluids.FluidRegistry;
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
 
@@ -8,27 +9,38 @@ public class GUIGlassFormer extends UTMGUI
 {
 	private TileGlassFormer tile;
 
-	public GUIGlassFormer(Container par1Container, TileGlassFormer entity, String texturePath)
+	public GUIGlassFormer(Container par1Container, TileGlassFormer entity)
 	{
-		super(par1Container, entity, texturePath);
+		super(par1Container, entity, "textures/gui/glassFormer.png");
 		
 		this.tile = entity;
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y) 
+	public void drawScreen(int x, int y, float par3)
 	{
-		int leftOff = this.guiLeft;
-		int topOff = this.guiTop;
-		if(x > 7 + leftOff && x < 11 + leftOff && y > 9 + topOff && y < 75 + topOff)
+		super.drawScreen(x, y, par3);
+		
+		if(this.isPointInRegion(7, 9, 4, 67, x, y))
 		{
-			this.drawToolTip( tile.storedEnergy + " J", "", x - leftOff, y - topOff);
+			this.drawToolTip( tile.storedEnergy + " J", "", x, y);
 		}
-		if(x > 16 + leftOff && x < 20 + leftOff && y > 9 + topOff && y < 75 + topOff)
+		if(this.isPointInRegion(16, 9, 4, 67, x, y))
 		{
-			this.drawToolTip( tile.temp + " C", "", x - leftOff, y - topOff);
+			this.drawToolTip( tile.temp + " C", "", x, y);
+		}
+		if(this.isPointInRegion(25, 8, 16, 46, x, y) && tile.Tanks[0].fluid != null && tile.Tanks[0].fluid.amount > 0)
+		{
+			this.drawToolTip(tile.Tanks[1].fluid.getFluid().getLocalizedName(), tile.Tanks[0].fluid.amount + " mB", x, y);
+		}
+		
+		if(this.isPointInRegion(46, 8, 16, 46, x, y) && tile.Tanks[1].fluid != null && tile.Tanks[1].fluid.amount > 0)
+		{
+			this.drawToolTip(tile.Tanks[1].fluid.getFluid().getLocalizedName(), tile.Tanks[1].fluid.amount + " mB", x, y);
 		}
 	}
+	
+	//FluidRegistry.getFluidName(tile.Tanks[0].fluid)
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
@@ -42,5 +54,17 @@ public class GUIGlassFormer extends UTMGUI
         
         int i2 = this.tile.getScaledTemp(67);
         drawTexturedModalRect(x + 16, y + 8 + 67 - i2, 180, 84 - i2, 4, i2);
+		
+        if(tile.Tanks[0].fluid != null && tile.Tanks[0].fluid.amount > 0)
+        {
+        	int i3 = tile.getScaledFluid(0, 46);
+        	this.displayGauge(25, 8 + y, 0, x, i3, 46, tile.Tanks[0].fluid);
+        }
+        
+        if(tile.Tanks[1].fluid != null && tile.Tanks[1].fluid.amount > 0)
+        {
+        	int i3 = tile.getScaledFluid(1, 46);
+        	this.displayGauge(46, 8 + y, 0, x, i3, 46, tile.Tanks[1].fluid);
+        }
 	}
 }

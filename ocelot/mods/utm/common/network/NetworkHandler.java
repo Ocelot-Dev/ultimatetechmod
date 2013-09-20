@@ -63,11 +63,11 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			case 1:
 			{
 				TilePrototypeSolarFurnace PSFTE = (TilePrototypeSolarFurnace)oTE;
-				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace(PSFTE, player.inventory), PSFTE, "textures/gui/PrototypeSolarfurnace.png");
+				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace(PSFTE, player.inventory), PSFTE);
 			}
 			case 2:
 				TileGlassFormer GFTE = (TileGlassFormer)oTE;
-				return new GUIGlassFormer(new ContainerGlassFormer(GFTE, player.inventory), GFTE, "textures/gui/glassFormer.png");
+				return new GUIGlassFormer(new ContainerGlassFormer(GFTE, player.inventory), GFTE);
 			}
 		}
 		return null;

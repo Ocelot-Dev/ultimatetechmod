@@ -18,13 +18,13 @@ public class Utilities
 {
 	public static boolean debug = true;
 	
-	public static void FReg(Block block, String internalName, String name, String tool, int toolLevel)
+	public static void FReg(Block block, String internalName, String tool, int toolLevel)
 	{
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, internalName);
 	}
 	
-	public static void FReg(Block block, Class<? extends ItemBlock> itemclass, String internalName, String name, String tool, int toolLevel)
+	public static void FReg(Block block, Class<? extends ItemBlock> itemclass, String internalName, String tool, int toolLevel)
 	{
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
 		GameRegistry.registerBlock(block, itemclass, internalName);
