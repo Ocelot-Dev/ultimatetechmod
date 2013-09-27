@@ -11,6 +11,7 @@ public class ItemGoldBook extends UTMItem
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
 	public boolean isItemTool(ItemStack par1ItemStack)
     {
         return !par1ItemStack.isItemEnchanted();

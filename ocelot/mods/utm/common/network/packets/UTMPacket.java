@@ -1,9 +1,7 @@
 package ocelot.mods.utm.common.network.packets;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 

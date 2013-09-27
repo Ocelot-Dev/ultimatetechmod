@@ -1,21 +1,14 @@
 package ocelot.mods.utm.common.entity;
 
-import java.util.LinkedList;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import buildcraft.api.gates.IOverrideDefaultTriggers;
-import buildcraft.api.gates.ITrigger;
 import buildcraft.api.power.IPowerEmitter;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.power.PowerHandler.PowerReceiver;
 import buildcraft.api.power.PowerHandler.Type;
 import buildcraft.api.transport.IPipeConnection;
-import buildcraft.api.transport.IPipeConnection.ConnectOverride;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
 public abstract class TileEngine extends TileInventory implements IPowerReceptor, IPowerEmitter, IPipeConnection

@@ -12,12 +12,9 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class Utilities
 {
-	public static boolean debug = true;
-	
 	public static void FReg(Block block, String internalName, String tool, int toolLevel)
 	{
 		MinecraftForge.setBlockHarvestLevel(block, tool, toolLevel);
@@ -75,6 +72,23 @@ public class Utilities
 		return -1;
 	}
 	
+	public static ForgeDirection getIntDirection(int direction)
+	{
+		if(direction == 0)
+			return ForgeDirection.DOWN;
+		if(direction == 1)
+			return ForgeDirection.UP;
+		if(direction == 2)
+			return ForgeDirection.NORTH;
+		if(direction == 3)
+			return ForgeDirection.SOUTH;
+		if(direction == 4)
+			return ForgeDirection.WEST;
+		if(direction == 5)
+			return ForgeDirection.EAST;
+		return ForgeDirection.UNKNOWN;
+	}
+	
 	public static boolean isRight(ForgeDirection side, ForgeDirection facing)
 	{
 		if(getNextSide(facing).equals(side))
@@ -111,21 +125,6 @@ public class Utilities
 		return !FMLCommonHandler.instance().getEffectiveSide().isClient();
 	}
 	
-	public void sendMeMessage(Object[] message, boolean disable)
-	{
-		if (debug && !disable)
-		{
-			for(int i = 0; i < message.length; i++)
-			{
-				UltimateTechMod.log.info(message[i].toString());
-			}
-		}
-	}
-	
-	public void init()
-	{
-	}
-	
 	public boolean IsRemote()
 	{
 		return FMLCommonHandler.instance().getSide().isServer();
@@ -154,9 +153,5 @@ public class Utilities
 				}
 			}
 		}
-	}
-	
-	public String getCurrentLanguage() {
-		return null;
 	}	
 }

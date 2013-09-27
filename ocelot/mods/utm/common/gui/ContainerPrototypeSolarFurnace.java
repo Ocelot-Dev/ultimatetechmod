@@ -9,8 +9,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
-import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 
 public class ContainerPrototypeSolarFurnace extends UTMContainer

@@ -1,18 +1,7 @@
 package ocelot.mods.utm.common.entity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 import buildcraft.api.core.SafeTimeTracker;
-import buildcraft.api.power.PowerHandler;
-import buildcraft.api.transport.IPipeConnection.ConnectOverride;
-import buildcraft.api.transport.IPipeTile.PipeType;
 
 public abstract class TileTempControl extends TilePowered
 {

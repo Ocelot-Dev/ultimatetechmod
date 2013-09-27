@@ -106,6 +106,18 @@ public abstract class TileInventory extends TileBase implements IInventory, ISid
 	{
 		return inv[i];
 	}
+	
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack)
+	{
+		inv[i] = itemstack;
+	}
+	
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+	{
+		return true;
+	}
 
 	@Override
 	public boolean isInvNameLocalized()

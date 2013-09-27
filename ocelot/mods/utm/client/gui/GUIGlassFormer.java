@@ -1,8 +1,7 @@
 package ocelot.mods.utm.client.gui;
 
 import net.minecraft.inventory.Container;
-import net.minecraftforge.fluids.FluidRegistry;
-import ocelot.mods.utm.common.entity.TileBase;
+import net.minecraftforge.fluids.FluidStack;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
 
 public class GUIGlassFormer extends UTMGUI
@@ -11,7 +10,7 @@ public class GUIGlassFormer extends UTMGUI
 
 	public GUIGlassFormer(Container par1Container, TileGlassFormer entity)
 	{
-		super(par1Container, entity, "textures/gui/glassFormer.png");
+		super(par1Container, entity, "glassFormer.png");
 		
 		this.tile = entity;
 	}
@@ -29,12 +28,12 @@ public class GUIGlassFormer extends UTMGUI
 		{
 			this.drawToolTip( tile.temp + " C", "", x, y);
 		}
-		if(this.isPointInRegion(25, 8, 16, 46, x, y) && tile.Tanks[0].fluid != null && tile.Tanks[0].fluid.amount > 0)
+		if(this.isPointInRegion(25, 8, 16, 46, x, y) && tile.Tanks[0].fluid != null && tile.Tanks[0].getFluidAmount() > 0)
 		{
-			this.drawToolTip(tile.Tanks[1].fluid.getFluid().getLocalizedName(), tile.Tanks[0].fluid.amount + " mB", x, y);
+			this.drawToolTip(tile.Tanks[0].fluid.getFluid().getLocalizedName(), tile.Tanks[0].fluid.amount + " mB", x, y);
 		}
 		
-		if(this.isPointInRegion(46, 8, 16, 46, x, y) && tile.Tanks[1].fluid != null && tile.Tanks[1].fluid.amount > 0)
+		if(this.isPointInRegion(46, 8, 16, 46, x, y) && tile.Tanks[1].fluid != null && tile.Tanks[1].fluid != new FluidStack(0, 0) && tile.Tanks[1].fluid.amount > 0)
 		{
 			this.drawToolTip(tile.Tanks[1].fluid.getFluid().getLocalizedName(), tile.Tanks[1].fluid.amount + " mB", x, y);
 		}

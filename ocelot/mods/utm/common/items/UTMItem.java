@@ -1,11 +1,9 @@
 package ocelot.mods.utm.common.items;
 
-import ocelot.mods.utm.client.utils.Localization;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class UTMItem extends Item
 {

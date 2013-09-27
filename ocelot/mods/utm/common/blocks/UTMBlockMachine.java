@@ -8,7 +8,6 @@ import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
-import ocelot.mods.utm.common.entity.TilePowered;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,10 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -256,15 +252,15 @@ public class UTMBlockMachine extends BlockContainer
 	{
 		this.icons = new Icon[3][10];
 		
-		this.icons[0][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
+		this.icons[0][0] = reg.registerIcon("utm:prototypeSolarFurnace_bottom");
 		
-		this.icons[1][0] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front");
-		this.icons[1][1] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_front_on");
-		this.icons[1][2] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side");
-		this.icons[1][3] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_side_on");
-		this.icons[1][4] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_back");
-		this.icons[1][6] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_top");
-		this.icons[1][8] = reg.registerIcon("ultimatetechmod:prototypeSolarFurnace_bottom");
+		this.icons[1][0] = reg.registerIcon("utm:prototypeSolarFurnace_front");
+		this.icons[1][1] = reg.registerIcon("utm:prototypeSolarFurnace_front_on");
+		this.icons[1][2] = reg.registerIcon("utm:prototypeSolarFurnace_side");
+		this.icons[1][3] = reg.registerIcon("utm:prototypeSolarFurnace_side_on");
+		this.icons[1][4] = reg.registerIcon("utm:prototypeSolarFurnace_back");
+		this.icons[1][6] = reg.registerIcon("utm:prototypeSolarFurnace_top");
+		this.icons[1][8] = reg.registerIcon("utm:prototypeSolarFurnace_bottom");
 	}
 
 }

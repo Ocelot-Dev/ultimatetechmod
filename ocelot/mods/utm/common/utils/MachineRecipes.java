@@ -3,9 +3,12 @@ package ocelot.mods.utm.common.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import ocelot.mods.utm.UltimateTechMod;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class MachineRecipes
@@ -30,12 +33,14 @@ public class MachineRecipes
 		
 	}
 	
+	public static final int ingotLiquidValue = 144;
+	
 	/**Register all recipes here**/
 	public static void InitRecipes()
 	{
-		registerGlassMaterial(new ItemStack(Block.sand), 2000, null);
-		registerGlassMaterial(new ItemStack(Block.glass), 1600, null);
-		registerGlassMaterial(new ItemStack(Block.thinGlass), 1600, null);
+		registerGlassMaterial(new ItemStack(Block.sand), 2000, new FluidStack(UltimateTechMod.UTMFluidGlass, FluidContainerRegistry.BUCKET_VOLUME));
+		registerGlassMaterial(new ItemStack(Block.glass), 1600, new FluidStack(UltimateTechMod.UTMFluidGlass, FluidContainerRegistry.BUCKET_VOLUME));
+		registerGlassMaterial(new ItemStack(Block.thinGlass), 1600, new FluidStack(UltimateTechMod.UTMFluidGlass, 250));
 		
 		registerReflective(new ItemStack(Item.ingotIron), 1600, null);
 	}
@@ -53,6 +58,24 @@ public class MachineRecipes
 		}
 		return results;
 	}
+	public static boolean isGlassItem(ItemStack test)
+	{
+		for(int i = 0; i < glassMaterial.size(); i++)
+		{
+			if(glassMaterial.get(i).ingred.isItemEqual(test))
+				return true;
+		}
+		return false;
+	}
+	public static meltMat getGlassInfoFor(ItemStack test)
+	{
+		for(int i = 0; i < glassMaterial.size(); i++)
+		{
+			if(glassMaterial.get(i).ingred.isItemEqual(test))
+				return glassMaterial.get(i);
+		}
+		return null;
+	}
 	
 	public static void registerReflective(ItemStack stack, int minMeltTemp, FluidStack result)
 	{
@@ -66,5 +89,23 @@ public class MachineRecipes
 			results.add(reflectMaterial.get(i).ingred);
 		}
 		return results;
+	}
+	public static boolean isReflectiveItem(ItemStack test)
+	{
+		for(int i = 0; i < reflectMaterial.size(); i++)
+		{
+			if(reflectMaterial.get(i).ingred.isItemEqual(test))
+				return true;
+		}
+		return false;
+	}
+	public static meltMat getReflectiveInfoFor(ItemStack test)
+	{
+		for(int i = 0; i < reflectMaterial.size(); i++)
+		{
+			if(reflectMaterial.get(i).ingred.isItemEqual(test))
+				return reflectMaterial.get(i);
+		}
+		return null;
 	}
 }

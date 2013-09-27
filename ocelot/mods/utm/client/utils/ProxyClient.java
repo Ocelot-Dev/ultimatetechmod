@@ -1,11 +1,10 @@
-package ocelot.mods.utm;
+package ocelot.mods.utm.client.utils;
 
-import ocelot.mods.utm.client.utils.Localization;
+import ocelot.mods.utm.common.utils.ProxyCommon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatMessageComponent;
-import net.minecraft.util.StringTranslate;
 
-public class UtilitiesClient extends Utilities
+public class ProxyClient extends ProxyCommon
 {
 	@Override
 	public void sendMeMessage(Object[] message, boolean disable)
@@ -18,14 +17,9 @@ public class UtilitiesClient extends Utilities
 		}
 	}
 
+	@Override
 	public void init()
 	{
 		super.init();
-	}
-
-	@Override
-	public String getCurrentLanguage()
-	{
-		return Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
 	}
 }

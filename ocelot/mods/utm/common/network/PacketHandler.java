@@ -5,10 +5,6 @@ import java.io.IOException;
 
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
-import ocelot.mods.utm.common.network.packets.UTMPacket;
-
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;

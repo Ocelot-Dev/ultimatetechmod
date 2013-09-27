@@ -11,7 +11,6 @@ import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.gui.ContainerGlassFormer;
 import ocelot.mods.utm.common.gui.ContainerPrototypeSolarFurnace;
-import ocelot.mods.utm.common.gui.UTMContainer;
 import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
 
 import net.minecraft.entity.player.EntityPlayer;

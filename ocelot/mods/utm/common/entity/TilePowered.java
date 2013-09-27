@@ -1,6 +1,5 @@
 package ocelot.mods.utm.common.entity;
 
-import ocelot.mods.utm.Utilities;
 import universalelectricity.compatibility.Compatibility;
 import universalelectricity.core.block.IElectrical;
 import universalelectricity.core.block.IElectricalStorage;
@@ -8,8 +7,6 @@ import universalelectricity.core.electricity.ElectricityPack;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -19,7 +16,6 @@ import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.power.PowerHandler.PowerReceiver;
 import buildcraft.api.power.PowerHandler.Type;
-import buildcraft.api.transport.IPipeTile.PipeType;
 
 public abstract class TilePowered extends TileInventory implements IEnergySink, IPowerReceptor, IElectrical, IElectricalStorage
 {

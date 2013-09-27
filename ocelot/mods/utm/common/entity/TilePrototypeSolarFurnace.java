@@ -1,6 +1,5 @@
 package ocelot.mods.utm.common.entity;
 
-import buildcraft.api.transport.IPipeConnection.ConnectOverride;
 import buildcraft.api.transport.IPipeTile.PipeType;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
@@ -10,7 +9,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TilePrototypeSolarFurnace extends TileInventory

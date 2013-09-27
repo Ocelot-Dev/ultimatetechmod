@@ -40,7 +40,12 @@ public class UTMFluidTank implements IFluidTank
             {
                 setFluid(fluid);
             }
+            else
+            	setFluid(null);
         }
+        
+        else
+        	setFluid(null);
         return this;
     }
 
@@ -182,5 +187,11 @@ public class UTMFluidTank implements IFluidTank
             }
         }
         return stack;
+    }
+    
+    @Override
+    public String toString()
+    {
+    	return this.capacity + " " + this.fluid;
     }
 }

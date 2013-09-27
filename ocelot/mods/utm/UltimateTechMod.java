@@ -3,24 +3,23 @@ package ocelot.mods.utm;
 import java.io.File;
 import java.util.logging.Logger;
 
-import ocelot.mods.utm.client.utils.Localization;
-import ocelot.mods.utm.common.CommonDefaults;
-import ocelot.mods.utm.common.blocks.UTMBlock;
+import ocelot.mods.utm.common.blocks.UTMBlockFluid;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
-import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
+import ocelot.mods.utm.common.items.ItemMould;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
 import ocelot.mods.utm.common.network.*;
 import ocelot.mods.utm.common.utils.MachineRecipes;
+import ocelot.mods.utm.common.utils.ProxyCommon;
 import universalelectricity.compatibility.Compatibility;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -36,11 +35,11 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(channels = { "UTM" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
 public class UltimateTechMod
 {
-	public static final String id = "UTM";
+	public static final String id = "utm";
 	public static final String version = "0.0.1 Alpha_1";
 	
-	@SidedProxy(clientSide = "ocelot.mods.utm.UtilitiesClient", serverSide = "ocelot.mods.utm.Utilities")
-	public static Utilities util;
+	@SidedProxy(clientSide = "ocelot.mods.utm.common.utils.ProxyCommon", serverSide = "ocelot.mods.utm.client.utils.ProxyClient")
+	public static ProxyCommon proxy;
 	
 	@Mod.Instance(UltimateTechMod.id)
 	public static UltimateTechMod Instance;
@@ -51,6 +50,14 @@ public class UltimateTechMod
 	
 	//BLOCKS
 	public static Block prototypeSolarFurnace;
+	public static Block blockFluidGlass;
+	
+	//ITEMS
+	public static ItemMould mould;
+	
+	//FLUIDS
+	public static Fluid UTMFluidGlass;
+	//public static Fluid fluidGlass;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -67,10 +74,22 @@ public class UltimateTechMod
 			
 			Property prop = config.getBlock("Machines1", 800);
 			prototypeSolarFurnace = new UTMBlockMachine(prop.getInt(), Material.ground);
+			
+			UTMFluidGlass = new Fluid("Molten Glass");
+			FluidRegistry.registerFluid(UTMFluidGlass);
+			
+			prop = config.getBlock("moltenGlass", 801);
+			blockFluidGlass = new UTMBlockFluid(prop.getInt(), UTMFluidGlass, Material.water, "glass").setUnlocalizedName("block.moltenGlass");
+			GameRegistry.registerBlock(blockFluidGlass, "block.moltenGlass");
+			UTMFluidGlass.setBlockID(blockFluidGlass);
+			
+			prop = config.getItem("Mould", 5000);
+			mould = new ItemMould(prop.getInt(), "mould");
 		}
 		finally
 		{
-			config.save();
+			if(config.hasChanged())
+				config.save();
 		}
 	}
 	
@@ -84,8 +103,6 @@ public class UltimateTechMod
 		
 		GameRegistry.registerTileEntity(TilePrototypeSolarFurnace.class, "ProtoSolar");
 		GameRegistry.registerTileEntity(TileGlassFormer.class, "GlassFormer");
-		
-		LanguageRegistry.instance().loadLocalization("/lang/ultimatetechmod/en_US.properties", "en_US", false);
 		
 		MachineRecipes.InitRecipes();
 	}

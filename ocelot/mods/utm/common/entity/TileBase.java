@@ -2,8 +2,6 @@ package ocelot.mods.utm.common.entity;
 
 import buildcraft.api.transport.IPipeConnection;
 import ocelot.mods.utm.Utilities;
-import ocelot.mods.utm.common.network.packets.PacketFacing;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
