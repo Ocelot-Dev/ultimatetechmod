@@ -1,5 +1,6 @@
 package ocelot.mods.utm.client.gui;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraftforge.fluids.FluidStack;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
@@ -39,7 +40,13 @@ public class GUIGlassFormer extends UTMGUI
 		}
 	}
 	
-	//FluidRegistry.getFluidName(tile.Tanks[0].fluid)
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    {
+		super.drawGuiContainerForegroundLayer(par1, par2);
+		
+        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 93 + 2, 4210752);
+    }
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)

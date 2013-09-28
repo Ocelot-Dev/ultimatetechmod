@@ -1,5 +1,6 @@
 package ocelot.mods.utm.common.items;
 
+import ocelot.mods.utm.client.UTMCreativeTab;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -11,6 +12,7 @@ public class UTMItem extends Item
 	{
 		super(id);
 		this.setUnlocalizedName(name);
+		this.setCreativeTab(UTMCreativeTab.tab);
 	}
 
 	public UTMItem(int id, int stackSize, String name)
@@ -29,6 +31,6 @@ public class UTMItem extends Item
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.itemIcon = par1IconRegister.registerIcon("ultimatetechmod:" + this.getUnlocalizedName().replaceFirst("item.", ""));
+		this.itemIcon = par1IconRegister.registerIcon("utm:" + this.getUnlocalizedName().replaceFirst("item.", ""));
 	}
 }

@@ -1,7 +1,12 @@
 # Master language file
 
 block.baseblock.name=Basic Machine
+tile.block.moltenGlass.name=Molten Glass
 tile.glassformer.name=Glass Former
 tile.solarfurnace.name=Prototype Solar Furnace
 
+item.mould.name=Mould
+
 info.invalidName.name=Name Not Set
+info.mouldEmpty=Empty Mould
+info.percent=Percent Done

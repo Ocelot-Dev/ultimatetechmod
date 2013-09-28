@@ -1,8 +1,10 @@
 package ocelot.mods.utm.client.gui;
 
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.StatCollector;
 
 public class GUIPrototypeSolarFurnace extends UTMGUI
 {
@@ -19,11 +21,19 @@ public class GUIPrototypeSolarFurnace extends UTMGUI
 	{
 		super.drawScreen(x, y, par3);
 
-		if (this.isPointInRegion(7, 9, 4, 67, x, y))
+		if (this.isPointInRegion(79, 34, 24, 17, x, y))
 		{
-			this.drawToolTip("Per-Cent Done", entity.getScaledSmeltTime(100) + "", x, y);
+			this.drawToolTip(StatCollector.translateToLocal("info.percent"), entity.getScaledSmeltTime(100) + "", x, y);
 		}
 	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    {
+		super.drawGuiContainerForegroundLayer(par1, par2);
+		
+        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+    }
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
