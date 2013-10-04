@@ -120,15 +120,7 @@ public class Utilities
 		}
 	}
 	
-	public boolean isSimulating()
-	{
-		return !FMLCommonHandler.instance().getEffectiveSide().isClient();
-	}
 	
-	public boolean IsRemote()
-	{
-		return FMLCommonHandler.instance().getSide().isServer();
-	}
 	
 	public void sendToPlayers(Packet250CustomPayload packet, World world, int x, int y, int z, int maxDistance) 
 	{

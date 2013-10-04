@@ -8,6 +8,7 @@ import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
+import ocelot.mods.utm.common.entity.TileMouldMaker;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,7 +32,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class UTMBlockMachine extends BlockContainer
 {
-	private Icon[][] icons;
+	private Icon[][]	icons;
 
 	public UTMBlockMachine(int id, Material material)
 	{
@@ -48,6 +49,7 @@ public class UTMBlockMachine extends BlockContainer
 		subItems.add(new ItemStack(this, 1, 0));
 		subItems.add(new ItemStack(this, 1, 1));
 		subItems.add(new ItemStack(this, 1, 2));
+		subItems.add(new ItemStack(this, 1, 3));
 	}
 
 	@Override
@@ -102,8 +104,7 @@ public class UTMBlockMachine extends BlockContainer
 			float ry = rand.nextFloat() * 0.8F + 0.1F;
 			float rz = rand.nextFloat() * 0.8F + 0.1F;
 
-			EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.itemID, item.stackSize,
-					item.getItemDamage()));
+			EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
 
 			if (item.hasTagCompound())
 			{
@@ -123,16 +124,20 @@ public class UTMBlockMachine extends BlockContainer
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are)
 	{
 		super.onBlockActivated(world, x, y, z, player, idk, what, these, are);
+		
+		if(world.getBlockMetadata(x, y, z) != 3 && !world.isRemote)
+			player.openGui(UltimateTechMod.Instance, 3, world, x, y, z);
+			
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if ((tileEntity == null) || (player.isSneaking()))
+		if ((tileEntity == null || player.isSneaking()))
 		{
 			return false;
 		}
 		TileBase tB = (TileBase) tileEntity;
 		if (!world.isRemote && tB != null)
-			{
-				player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
-			}
+		{
+			player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
+		}
 		return true;
 	}
 
@@ -166,12 +171,14 @@ public class UTMBlockMachine extends BlockContainer
 
 		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
 	}
-	
+
 	@Override
-	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis) {
+	public boolean rotateBlock(World world, int x, int y, int z, ForgeDirection axis)
+	{
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-		if (tile instanceof TileBase) {
-			((TileBase)tile).setFacing(Utilities.getNextSide(((TileBase)tile).getFacing()));
+		if (tile instanceof TileBase)
+		{
+			((TileBase) tile).setFacing(Utilities.getNextSide(((TileBase) tile).getFacing()));
 			return true;
 		}
 		return false;
@@ -186,33 +193,31 @@ public class UTMBlockMachine extends BlockContainer
 		if (entity == null) return super.getBlockTexture(par1IBlockAccess, x, y, z, side);
 		ForgeDirection facing = entity.getFacing();
 		int index = 0;
-		if(facing.equals(direction))
+		if (facing.equals(direction))
 			index = 0;
-		else if(Utilities.isLeft(direction, facing) || Utilities.isRight(direction, facing))
+		else if (Utilities.isLeft(direction, facing) || Utilities.isRight(direction, facing))
 			index = 2;
-		else if(Utilities.isBack(direction, facing))
+		else if (Utilities.isBack(direction, facing))
 			index = 4;
-		else if(direction.equals(ForgeDirection.UP))
+		else if (direction.equals(ForgeDirection.UP))
 			index = 6;
-		else if(direction.equals(ForgeDirection.DOWN))
+		else if (direction.equals(ForgeDirection.DOWN))
 			index = 8;
 		else
 			index = 8;
-		if(!entity.doesSideNotChangeActive(direction))
-			index += 1;
+		if (!entity.doesSideNotChangeActive(direction)) index += 1;
 		return getValidIcon(meta, index);
 	}
-	
+
 	public Icon getValidIcon(int meta, int index)
 	{
 		try
 		{
 			Icon icon = icons[meta][index];
-			if(icon == null)
-				return icons[0][0];
+			if (icon == null) return icons[0][0];
 			return icons[meta][index];
 		}
-		catch(ArrayIndexOutOfBoundsException e)
+		catch (ArrayIndexOutOfBoundsException e)
 		{
 			return icons[0][0];
 		}
@@ -251,9 +256,9 @@ public class UTMBlockMachine extends BlockContainer
 	public void registerIcons(IconRegister reg)
 	{
 		this.icons = new Icon[3][10];
-		
+
 		this.icons[0][0] = reg.registerIcon("utm:prototypeSolarFurnace_bottom");
-		
+
 		this.icons[1][0] = reg.registerIcon("utm:prototypeSolarFurnace_front");
 		this.icons[1][1] = reg.registerIcon("utm:prototypeSolarFurnace_front_on");
 		this.icons[1][2] = reg.registerIcon("utm:prototypeSolarFurnace_side");

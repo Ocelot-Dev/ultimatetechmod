@@ -5,11 +5,14 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 import ocelot.mods.utm.client.gui.GUIGlassFormer;
+import ocelot.mods.utm.client.gui.GUIMouldMaker;
 import ocelot.mods.utm.client.gui.GUIPrototypeSolarFurnace;
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
+import ocelot.mods.utm.common.entity.TileMouldMaker;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.gui.ContainerGlassFormer;
+import ocelot.mods.utm.common.gui.ContainerMouldMaker;
 import ocelot.mods.utm.common.gui.ContainerPrototypeSolarFurnace;
 import ocelot.mods.utm.common.network.packets.PacketTileUpdate;
 
@@ -37,13 +40,11 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-			{
-				TilePrototypeSolarFurnace PSFTE = (TilePrototypeSolarFurnace)oTE;
-				return new ContainerPrototypeSolarFurnace(PSFTE, player.inventory);
-			}
+				return new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace)oTE, player.inventory);
 			case 2:
-				TileGlassFormer GFTE = (TileGlassFormer)oTE;
-				return new ContainerGlassFormer(GFTE, player.inventory);
+				return new ContainerGlassFormer((TileGlassFormer)oTE, player.inventory);
+			case 3:
+				return new ContainerMouldMaker(player.inventory, world, x, y, z);
 			}
 		}
 
@@ -60,13 +61,11 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 			switch (ID)
 			{
 			case 1:
-			{
-				TilePrototypeSolarFurnace PSFTE = (TilePrototypeSolarFurnace)oTE;
-				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace(PSFTE, player.inventory), PSFTE);
-			}
+				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace)oTE, player.inventory), (TilePrototypeSolarFurnace)oTE);
 			case 2:
-				TileGlassFormer GFTE = (TileGlassFormer)oTE;
-				return new GUIGlassFormer(new ContainerGlassFormer(GFTE, player.inventory), GFTE);
+				return new GUIGlassFormer(new ContainerGlassFormer((TileGlassFormer)oTE, player.inventory), (TileGlassFormer)oTE);
+			case 3:
+				return new GUIMouldMaker(new ContainerMouldMaker(player.inventory, world, x, y, z));
 			}
 		}
 		return null;

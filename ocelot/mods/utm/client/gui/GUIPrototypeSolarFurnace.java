@@ -12,7 +12,7 @@ public class GUIPrototypeSolarFurnace extends UTMGUI
 
 	public GUIPrototypeSolarFurnace(Container par1Container, TilePrototypeSolarFurnace tile)
 	{
-		super(par1Container, tile, "PrototypeSolarfurnace.png");
+		super(par1Container, tile, "prototypeSolarfurnace.png");
 		entity = tile;
 	}
 

@@ -10,40 +10,37 @@ import net.minecraft.util.ResourceLocation;
 
 public class UTMButton extends GuiButton
 {
-	public final UTMGUI gui;
-	public final ResourceLocation texture;
-	public final int xText;
-	public final int yText;
-	
-	public UTMButton(int id, int xPos, int yPos, int width, int height, int xIconStart, int yIconStart, ResourceLocation resourceLocation, UTMGUI gui)
+	protected final ResourceLocation	buttonTexture;
+	protected final int					xTexturePos;
+	protected final int					yTexturePos;
+
+	public UTMButton(int id, int xPos, int yPos, int width, int height, ResourceLocation texture, int xTexture, int yTexture)
 	{
 		super(id, xPos, yPos, width, height, "");
-		texture = resourceLocation;
-		xText = xIconStart;
-		yText = yIconStart;
-		this.gui = gui;
+		buttonTexture = texture;
+		xTexturePos = xTexture;
+		yTexturePos = yTexture;
 	}
-	
-	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3)
-    {
-        if (this.drawButton)
-        {
-            par1Minecraft.getTextureManager().bindTexture(gui.TEXTURE);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
-            short short1 = 219;
-            int k = 0;
 
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, xText, yText, this.width, this.height);
+	public void drawButton(Minecraft par1Minecraft, int x, int y)
+	{
+		if (this.drawButton)
+		{
+			par1Minecraft.getTextureManager().bindTexture(buttonTexture);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			this.field_82253_i = x >= this.xPosition && y >= this.yPosition && x < this.xPosition + this.width && y < this.yPosition + this.height;
+			int offset = xTexturePos;
 
-            if (!gui.TEXTURE.equals(this.texture))
-            {
-                par1Minecraft.getTextureManager().bindTexture(this.texture);
-            }
+			if (!this.enabled)
+			{
+				offset += this.width * 2;
+			}
+			else if (this.field_82253_i)
+			{
+				offset += this.width * 3;
+			}
 
-            this.drawTexturedModalRect(this.xPosition + 2, this.yPosition + 2, this.xText, this.yText, this.width, this.height);
-        }
-    }
-
+			this.drawTexturedModalRect(this.xPosition, this.yPosition, offset, this.yTexturePos, this.width, this.height);
+		}
+	}
 }

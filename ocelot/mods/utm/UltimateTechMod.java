@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import ocelot.mods.utm.common.blocks.UTMBlockFluid;
 import ocelot.mods.utm.common.blocks.UTMBlockMachine;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
+import ocelot.mods.utm.common.entity.TileMouldMaker;
 import ocelot.mods.utm.common.entity.TilePrototypeSolarFurnace;
 import ocelot.mods.utm.common.items.ItemMould;
 import ocelot.mods.utm.common.items.UTMBlockMachineItems;
@@ -31,17 +32,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = UltimateTechMod.id, name = "Ultimate Tech Mod", version = UltimateTechMod.version)
-@NetworkMod(channels = { "UTM" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UltimateTechMod.version)
+@Mod(modid = UTMConstants.MOD_ID, name = "Ultimate Tech Mod", version = UTMConstants.MOD_VERSION)
+@NetworkMod(channels = { "UTM" }, packetHandler = NetworkHandler.class, clientSideRequired = true, versionBounds = UTMConstants.MOD_VERSION)
 public class UltimateTechMod
-{
-	public static final String id = "utm";
-	public static final String version = "0.0.1 Alpha_1";
-	
+{		
 	@SidedProxy(clientSide = "ocelot.mods.utm.common.utils.ProxyCommon", serverSide = "ocelot.mods.utm.client.utils.ProxyClient")
 	public static ProxyCommon proxy;
 	
-	@Mod.Instance(UltimateTechMod.id)
+	@Mod.Instance(UTMConstants.MOD_ID)
 	public static UltimateTechMod Instance;
 	
 	public static Logger log = Logger.getLogger("UTM");
@@ -65,7 +63,7 @@ public class UltimateTechMod
 		NetworkRegistry.instance().registerGuiHandler(Instance, new NetworkHandler());
 		
 		log.setParent(FMLLog.getLogger());
-		this.log.info("Loading Ultimate Tech Mod " + version);
+		this.log.info("Loading Ultimate Tech Mod " + UTMConstants.MOD_VERSION);
 
 		config = new Configuration(new File(event.getModConfigurationDirectory(), "UltimateTechMod.cfg"));
 		try
@@ -103,6 +101,7 @@ public class UltimateTechMod
 		
 		GameRegistry.registerTileEntity(TilePrototypeSolarFurnace.class, "ProtoSolar");
 		GameRegistry.registerTileEntity(TileGlassFormer.class, "GlassFormer");
+		GameRegistry.registerTileEntity(TileMouldMaker.class, "MouldMaker");
 		
 		MachineRecipes.InitRecipes();
 	}

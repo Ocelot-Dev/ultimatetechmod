@@ -3,6 +3,7 @@ package ocelot.mods.utm.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import ocelot.mods.utm.UTMConstants;
 import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileInventory;
 import ocelot.mods.utm.common.utils.SessionVars;
@@ -31,7 +32,7 @@ public class UTMGUI extends GuiContainer
 	{
 		super(par1Container);
 
-		this.TEXTURE = new ResourceLocation("utm", "textures/gui/" + textureName);
+		this.TEXTURE = new ResourceLocation("utm", UTMConstants.GUI_TEXTURE_PATH + textureName);
 		this.tile = entity;
 
 		this.initLedgers((TileInventory) tile);
@@ -245,6 +246,8 @@ public class UTMGUI extends GuiContainer
 
 	/**
 	 * Side ledger for guis
+	 * 
+	 * Thank you BuildCraft!!
 	 */
 	protected abstract class Ledger
 	{

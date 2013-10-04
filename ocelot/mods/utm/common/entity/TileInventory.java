@@ -65,9 +65,9 @@ public abstract class TileInventory extends TileBase implements IInventory, ISid
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i)
+	public ItemStack getStackInSlot(int slot)
 	{
-		return inv[i];
+		return slot >= this.getSizeInventory() ? null : this.inv[slot];
 	}
 
 	@Override
