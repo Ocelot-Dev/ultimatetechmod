@@ -6,9 +6,21 @@ import net.minecraft.item.ItemStack;
 
 public class InventoryMouldMaker extends UTMInventory
 {
+	private int index = 0;
+	
 	public InventoryMouldMaker(Container container)
 	{
 		super(container, 2);
+	}
+	
+	public void increaseIndex()
+	{
+		index += 1;
+	}
+	
+	public void decreaseIndex()
+	{
+		index -= 1;
 	}
 
 	@Override

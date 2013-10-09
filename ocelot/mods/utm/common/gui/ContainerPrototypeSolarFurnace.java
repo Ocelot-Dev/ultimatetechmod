@@ -20,7 +20,7 @@ public class ContainerPrototypeSolarFurnace extends UTMContainer
 
 	public ContainerPrototypeSolarFurnace(TilePrototypeSolarFurnace te, InventoryPlayer inv)
 	{
-		super(te, inv);
+		super(inv);
 		furnace = te;
 		addSlotToContainer(new Slot(te, 0, 56, 35));
 		addSlotToContainer(new SlotFurnace(inv.player, te, 1, 116, 35));

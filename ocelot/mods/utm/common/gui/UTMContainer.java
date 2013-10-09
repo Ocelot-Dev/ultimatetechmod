@@ -8,12 +8,10 @@ import net.minecraft.inventory.Slot;
 
 public class UTMContainer extends Container
 {
-	protected TileBase tileEntity;
 	protected InventoryPlayer invPlayer;
 
-	public UTMContainer(TileBase te, InventoryPlayer inv)
+	public UTMContainer(InventoryPlayer inv)
 	{
-		this.tileEntity = te;
 		this.invPlayer = inv;
 	}
 	

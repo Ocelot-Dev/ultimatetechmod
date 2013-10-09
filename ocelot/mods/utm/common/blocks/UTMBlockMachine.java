@@ -78,10 +78,10 @@ public class UTMBlockMachine extends BlockContainer
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, int par5, int par6)
+	public void breakBlock(World world, int x, int y, int z, int id, int meta)
 	{
 		dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, par5, par6);
+		super.breakBlock(world, x, y, z, id, meta);
 	}
 
 	private void dropItems(World world, int x, int y, int z)
@@ -121,29 +121,28 @@ public class UTMBlockMachine extends BlockContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int idk, float what, float these, float are)
-	{
-		super.onBlockActivated(world, x, y, z, player, idk, what, these, are);
-		
-		if(world.getBlockMetadata(x, y, z) != 3 && !world.isRemote)
-			player.openGui(UltimateTechMod.Instance, 3, world, x, y, z);
-			
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if ((tileEntity == null || player.isSneaking()))
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{		
+		if(world.getBlockMetadata(x, y, z) == 3)
 		{
-			return false;
+			player.openGui(UltimateTechMod.Instance, 3, world, x, y, z);
+			return true;
 		}
-		TileBase tB = (TileBase) tileEntity;
-		if (!world.isRemote && tB != null)
+
+		TileBase tB = (TileBase) world.getBlockTileEntity(x, y, z);
+		if (tB != null)
 		{
 			player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
 	{
+		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
+		
 		TileBase te = (TileBase) world.getBlockTileEntity(x, y, z);
 		if (te == null) return;
 
@@ -168,8 +167,6 @@ public class UTMBlockMachine extends BlockContainer
 				break;
 			}
 		}
-
-		super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
 	}
 
 	@Override

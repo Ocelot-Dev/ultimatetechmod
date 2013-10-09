@@ -1,10 +1,15 @@
 package ocelot.mods.utm.common.gui;
 
 import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.common.gui.slot.SlotFilter;
 import ocelot.mods.utm.common.inventory.InventoryMouldMaker;
+import ocelot.mods.utm.common.utils.MachineRecipes;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.SlotFurnace;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +24,8 @@ public class ContainerMouldMaker extends UTMContainerNoEntity
 	{
 		super(inv, world, xPos, yPos, zPos);
 		
+		this.addSlotToContainer(new SlotFilter(inv, 36, 50, 53, new ItemStack(Item.clay)));
+		this.addSlotToContainer(new SlotCrafting(inv.player, craftMatrix, inv, 37, 112, 53));
 		this.addPlayerInventory(inv, 8, 84);
 	}
 	
@@ -32,7 +39,6 @@ public class ContainerMouldMaker extends UTMContainerNoEntity
 	
 	public NBTTagCompound getTagForMould()
 	{
-		//TODO make this work!
-		return null;
+		return MachineRecipes.getMouldTag(index);
 	}
 }

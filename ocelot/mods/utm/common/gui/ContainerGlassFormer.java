@@ -20,7 +20,7 @@ public class ContainerGlassFormer extends UTMContainer
 
 	public ContainerGlassFormer(TileGlassFormer te, InventoryPlayer inv)
 	{
-		super(te, inv);
+		super(inv);
 		
 		tile = te;
 		addSlotToContainer(new SlotFilter(te, 0, 25, 59, MachineRecipes.getGlassItems()));

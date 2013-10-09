@@ -27,25 +27,24 @@ import cpw.mods.fml.common.network.Player;
 
 public class NetworkHandler implements IPacketHandler, IGuiHandler
 {
-	private PacketHandler handler = new PacketHandler();
+	private PacketHandler	handler	= new PacketHandler();
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if ((tileEntity instanceof TileBase))
-		{
-			TileBase oTE = (TileBase) tileEntity;
+		TileBase oTE = null;
+		if(tileEntity instanceof TileBase)
+			oTE = (TileBase) tileEntity;
 
-			switch (ID)
-			{
-			case 1:
-				return new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace)oTE, player.inventory);
-			case 2:
-				return new ContainerGlassFormer((TileGlassFormer)oTE, player.inventory);
-			case 3:
-				return new ContainerMouldMaker(player.inventory, world, x, y, z);
-			}
+		switch (ID)
+		{
+		case 1:
+			return new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace) oTE, player.inventory);
+		case 2:
+			return new ContainerGlassFormer((TileGlassFormer) oTE, player.inventory);
+		case 3:
+			return new ContainerMouldMaker(player.inventory, world, x, y, z);
 		}
 
 		return null;
@@ -55,18 +54,18 @@ public class NetworkHandler implements IPacketHandler, IGuiHandler
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if ((tileEntity instanceof TileBase))
+		TileBase oTE = null;
+		if(tileEntity instanceof TileBase)
+			oTE = (TileBase) tileEntity;
+
+		switch (ID)
 		{
-			TileBase oTE = (TileBase) tileEntity;
-			switch (ID)
-			{
-			case 1:
-				return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace)oTE, player.inventory), (TilePrototypeSolarFurnace)oTE);
-			case 2:
-				return new GUIGlassFormer(new ContainerGlassFormer((TileGlassFormer)oTE, player.inventory), (TileGlassFormer)oTE);
-			case 3:
-				return new GUIMouldMaker(new ContainerMouldMaker(player.inventory, world, x, y, z));
-			}
+		case 1:
+			return new GUIPrototypeSolarFurnace(new ContainerPrototypeSolarFurnace((TilePrototypeSolarFurnace) oTE, player.inventory), (TilePrototypeSolarFurnace) oTE);
+		case 2:
+			return new GUIGlassFormer(new ContainerGlassFormer((TileGlassFormer) oTE, player.inventory), (TileGlassFormer) oTE);
+		case 3:
+			return new GUIMouldMaker(new ContainerMouldMaker(player.inventory, world, x, y, z));
 		}
 		return null;
 	}
