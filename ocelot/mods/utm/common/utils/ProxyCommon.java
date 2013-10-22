@@ -1,6 +1,6 @@
 package ocelot.mods.utm.common.utils;
 
-import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.UTM;
 
 public class ProxyCommon
 {
@@ -12,10 +12,15 @@ public class ProxyCommon
 		{
 			for(int i = 0; i < message.length; i++)
 			{
-				UltimateTechMod.log.info(message[i].toString());
+				UTM.log.info(message[i].toString());
 			}
 		}
 	}
 	
 	public void init(){}
+	
+	public String getLocalization(String text)
+	{
+		return "null";
+	}
 }

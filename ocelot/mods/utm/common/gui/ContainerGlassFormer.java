@@ -9,7 +9,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.UTM;
 import ocelot.mods.utm.common.entity.TileGlassFormer;
 import ocelot.mods.utm.common.gui.slot.SlotFilter;
 import ocelot.mods.utm.common.utils.MachineRecipes;
@@ -25,7 +25,7 @@ public class ContainerGlassFormer extends UTMContainer
 		tile = te;
 		addSlotToContainer(new SlotFilter(te, 0, 25, 59, MachineRecipes.getGlassItems()));
 		addSlotToContainer(new SlotFilter(te, 1, 46, 59, MachineRecipes.getReflective()));
-		addSlotToContainer(new SlotFilter(te, 2, 76, 35, new ItemStack(UltimateTechMod.mould)));
+		addSlotToContainer(new SlotFilter(te, 2, 76, 35, new ItemStack(UTM.mould)));
 		addSlotToContainer(new SlotFurnace(inv.player, te, 3, 139, 35));
 		this.addPlayerInventory(inv, 8, 84);
 	}

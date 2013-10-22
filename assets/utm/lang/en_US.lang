@@ -10,5 +10,9 @@ item.mould.name=Mould
 info.invalidName.name=Name Not Set
 info.mouldEmpty=Empty Mould
 info.percent=Percent Done
+info.focus=Focal Point
+info.straightLight=Flat Lens
+info.horozFocus=Horizontal Focus
+info.vertFocus=Vertical Focus
 
 recipe.GlassFormer.name=Glass Former

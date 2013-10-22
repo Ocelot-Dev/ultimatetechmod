@@ -9,4 +9,5 @@ public class UTMConstants
 	
 	public static final String STACK_TAG_NAME = "result";
 	public static final String FLUID_TAG_NAME = "input";
+	public static final String fluidStoreName = "fluid1";
 }

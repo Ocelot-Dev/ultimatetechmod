@@ -1,5 +1,6 @@
 package ocelot.mods.utm.client.gui;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import ocelot.mods.utm.common.entity.TileBase;
 import ocelot.mods.utm.common.entity.TileInventory;
 import ocelot.mods.utm.common.utils.SessionVars;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -21,12 +23,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class UTMGUI extends GuiContainer
+public class UTMGUI extends GuiContainer implements IGUIActionListener
 {
-	public final ResourceLocation TEXTURE;
-	public final ResourceLocation BLOCK_TEXTURE = TextureMap.locationBlocksTexture;
-	public static final ResourceLocation LEDGER_TEXTURE = new ResourceLocation("utm", "textures/gui/ledger.png");
-	protected final TileBase tile;
+	public ArrayList<UTMGUIWidget>			widgets			= new ArrayList<UTMGUIWidget>();
+
+	public final ResourceLocation			TEXTURE;
+	public final ResourceLocation			BLOCK_TEXTURE	= TextureMap.locationBlocksTexture;
+	public static final ResourceLocation	LEDGER_TEXTURE	= new ResourceLocation("utm", "textures/gui/ledger.png");
+	public static final ResourceLocation	UTIL_TEXTURE	= new ResourceLocation("utm", "textures/gui/util.png");
+	protected final TileBase				tile;
 
 	public UTMGUI(Container par1Container, TileBase entity, String textureName)
 	{
@@ -36,6 +41,15 @@ public class UTMGUI extends GuiContainer
 		this.tile = entity;
 
 		this.initLedgers((TileInventory) tile);
+	}
+
+	@Override
+	public void drawScreen(int x, int y, float f)
+	{
+		super.drawScreen(x, y, f);
+
+		for (UTMGUIWidget widget : widgets)
+			widget.draw(x, y, f);
 	}
 
 	@Override
@@ -55,12 +69,46 @@ public class UTMGUI extends GuiContainer
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int mouseButton)
+	protected void mouseClicked(int x, int y, int mouseButton)
 	{
-		super.mouseClicked(par1, par2, mouseButton);
+		super.mouseClicked(x, y, mouseButton);
 
 		// / Handle ledger clicks
-		ledgerManager.handleMouseClicked(par1, par2, mouseButton);
+		ledgerManager.handleMouseClicked(x, y, mouseButton);
+		for (UTMGUIWidget widget : widgets)
+			widget.mouseClicked(x, y, mouseButton);
+	}
+
+	@Override
+	protected void mouseMovedOrUp(int x, int y, int button)
+	{
+		super.mouseMovedOrUp(x, y, button);
+		for (UTMGUIWidget widget : widgets)
+			widget.mouseMovedOrUp(x, y, button);
+	}
+
+	@Override
+	protected void mouseClickMove(int x, int y, int button, long time)
+	{
+		super.mouseClickMove(x, y, button, time);
+		for (UTMGUIWidget widget : widgets)
+			widget.mouseDragged(x, y, button, time);
+	}
+
+	@Override
+	public void updateScreen()
+	{
+		super.updateScreen();
+		if (mc.currentScreen == this) for (UTMGUIWidget widget : widgets)
+			widget.update();
+	}
+
+	@Override
+	public void keyTyped(char c, int keycode)
+	{
+		super.keyTyped(c, keycode);
+		for (UTMGUIWidget widget : widgets)
+			widget.keyTyped(c, keycode);
 	}
 
 	protected void drawToolTip(String line1, String line2, int x, int y)
@@ -124,8 +172,14 @@ public class UTMGUI extends GuiContainer
 		drawTexturedModalRect(x + xStart, y + yStart, 176, 84, 16, height);
 	}
 
+	public void add(UTMGUIWidget widget)
+	{
+		widgets.add(widget);
+		widget.onAdded(this);
+	}
+
 	// LEDGER FROM BUILDCRAFT, THANK YOU BC TEAM
-	protected LedgerManager ledgerManager = new LedgerManager(this);
+	protected LedgerManager	ledgerManager	= new LedgerManager(this);
 
 	protected void initLedgers(IInventory inventory)
 	{}
@@ -133,8 +187,8 @@ public class UTMGUI extends GuiContainer
 	protected class LedgerManager
 	{
 
-		private UTMGUI gui;
-		protected ArrayList<Ledger> ledgers = new ArrayList<Ledger>();
+		private UTMGUI				gui;
+		protected ArrayList<Ledger>	ledgers	= new ArrayList<Ledger>();
 
 		public LedgerManager(UTMGUI gui)
 		{
@@ -252,17 +306,17 @@ public class UTMGUI extends GuiContainer
 	protected abstract class Ledger
 	{
 
-		private boolean open;
-		protected int overlayColor = 0xffffff;
-		public int currentShiftX = 0;
-		public int currentShiftY = 0;
-		protected int limitWidth = 128;
-		protected int maxWidth = 124;
-		protected int minWidth = 24;
-		protected int currentWidth = minWidth;
-		protected int maxHeight = 24;
-		protected int minHeight = 24;
-		protected int currentHeight = minHeight;
+		private boolean	open;
+		protected int	overlayColor	= 0xffffff;
+		public int		currentShiftX	= 0;
+		public int		currentShiftY	= 0;
+		protected int	limitWidth		= 128;
+		protected int	maxWidth		= 124;
+		protected int	minWidth		= 24;
+		protected int	currentWidth	= minWidth;
+		protected int	maxHeight		= 24;
+		protected int	minHeight		= 24;
+		protected int	currentHeight	= minHeight;
 
 		public void update()
 		{
@@ -375,4 +429,8 @@ public class UTMGUI extends GuiContainer
 			drawTexturedModelRectFromIcon(x, y, icon, 16, 16);
 		}
 	}
+
+	@Override
+	public void actionPerformed(String actionCommand, Object... params)
+	{}
 }

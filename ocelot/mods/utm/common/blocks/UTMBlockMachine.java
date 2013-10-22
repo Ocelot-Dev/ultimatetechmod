@@ -3,7 +3,7 @@ package ocelot.mods.utm.common.blocks;
 import java.util.List;
 import java.util.Random;
 
-import ocelot.mods.utm.UltimateTechMod;
+import ocelot.mods.utm.UTM;
 import ocelot.mods.utm.Utilities;
 import ocelot.mods.utm.client.UTMCreativeTab;
 import ocelot.mods.utm.common.entity.TileBase;
@@ -125,14 +125,14 @@ public class UTMBlockMachine extends BlockContainer
 	{		
 		if(world.getBlockMetadata(x, y, z) == 3)
 		{
-			player.openGui(UltimateTechMod.Instance, 3, world, x, y, z);
+			player.openGui(UTM.Instance, 3, world, x, y, z);
 			return true;
 		}
 
 		TileBase tB = (TileBase) world.getBlockTileEntity(x, y, z);
 		if (tB != null)
 		{
-			player.openGui(UltimateTechMod.Instance, tB.getID(), world, x, y, z);
+			player.openGui(UTM.Instance, tB.getID(), world, x, y, z);
 			return true;
 		}
 		return false;
